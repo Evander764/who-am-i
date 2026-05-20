@@ -3,6 +3,7 @@ import { withBasePath } from "@/app/_lib/basePath";
 import type { Work } from "@/app/_data/works";
 import GalleryRotator from "@/components/work/GalleryRotator";
 import HudTilt from "@/components/work/HudTilt";
+import CodeSnippet from "@/components/work/CodeSnippet";
 
 type Props = {
   work: Work;
@@ -10,31 +11,42 @@ type Props = {
 };
 
 export default function WorkRow({ work, reverse = false }: Props) {
+  const hasMainMedia =
+    (work.gallery && work.gallery.length > 0) || Boolean(work.image);
+
   const innerMedia =
     work.gallery && work.gallery.length > 0 ? (
       <GalleryRotator images={work.gallery} />
-    ) : (
+    ) : work.image ? (
       <div className="media-frame">
-        {work.image ? (
-          <Image
-            src={withBasePath(work.image)}
-            alt={`${work.title} 预览图`}
-            width={1280}
-            height={800}
-            className="object-cover"
-          />
-        ) : work.motif ? (
-          <div className="work-motif">
-            <div>
-              <p className="motif-big">{work.motif.big}</p>
-              <p className="motif-sub">{work.motif.sub}</p>
-            </div>
-          </div>
-        ) : null}
+        <Image
+          src={withBasePath(work.image)}
+          alt={`${work.title} 预览图`}
+          width={1280}
+          height={800}
+          className="object-cover"
+        />
       </div>
-    );
+    ) : work.codeSnippet ? (
+      <CodeSnippet
+        variant="media"
+        caption={work.codeSnippet.caption}
+        lang={work.codeSnippet.lang}
+        code={work.codeSnippet.code}
+      />
+    ) : work.motif ? (
+      <div className="media-frame">
+        <div className="work-motif">
+          <div>
+            <p className="motif-big">{work.motif.big}</p>
+            <p className="motif-sub">{work.motif.sub}</p>
+          </div>
+        </div>
+      </div>
+    ) : null;
 
   const mediaCol = <HudTilt>{innerMedia}</HudTilt>;
+  const showInlineCode = hasMainMedia && work.codeSnippet;
 
   const textCol = (
     <div>
@@ -89,6 +101,17 @@ export default function WorkRow({ work, reverse = false }: Props) {
               查看源码 <span aria-hidden>→</span>
             </a>
           ) : null}
+        </div>
+      ) : null}
+
+      {showInlineCode && work.codeSnippet ? (
+        <div className="mt-9">
+          <CodeSnippet
+            variant="inline"
+            caption={work.codeSnippet.caption}
+            lang={work.codeSnippet.lang}
+            code={work.codeSnippet.code}
+          />
         </div>
       ) : null}
     </div>

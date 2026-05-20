@@ -9,6 +9,7 @@ export type Work = {
   image?: string;
   gallery?: { src: string; alt: string }[];
   motif?: { big: string; sub: string };
+  codeSnippet?: { caption?: string; lang?: string; code: string };
   liveUrl?: string;
   repoUrl?: string;
 };
@@ -73,6 +74,17 @@ export const WORKS: Work[] = [
       },
       { src: "/images/timetable-ui/stats.svg", alt: "Timetable 统计：时间审计" },
     ],
+    codeSnippet: {
+      caption: "src/shared/utils/countdownEvents.ts",
+      lang: "ts",
+      code: `export function getRemainingBeijingDayTime(now = new Date()): string {
+  const diff = Math.max(0, getBeijingDayExpiryDate(formatBeijingDateKey(now)).getTime() - now.getTime())
+  const hours = Math.floor(diff / (1000 * 60 * 60))
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+  return [hours, minutes, seconds].map(pad2).join(':')
+}`,
+    },
     repoUrl: "https://github.com/Evander764/Timetable",
   },
   {
@@ -101,9 +113,36 @@ export const WORKS: Work[] = [
     title: "Contemporary-contact",
     tagline: "一个会过期的小群。开 60 分钟，聊完就散，没有账号、没有历史。",
     role: "独立设计 + 开发",
-    tech: ["Next.js", "Supabase", "Vercel"],
-    outcome: "线上可用",
+    tech: ["Next.js", "Supabase", "Vercel", "TypeScript", "Server Actions"],
+    outcome: "线上可用 · 房间到期自动销毁 · HMAC 派生开发者密钥",
+    features: [
+      "无账号 · 无历史 · 无云端复印",
+      "60 分钟自动到期销毁",
+      "邀请码 + 双角色（开张 / 入伙）",
+      "HMAC-SHA256 派生授权密钥",
+      "Server Actions",
+    ],
+    codeSnippet: {
+      caption: "lib/rooms.ts",
+      lang: "ts",
+      code: `import "server-only";
+import { createHash, createHmac, randomBytes, randomUUID } from "node:crypto";
+import { db } from "./supabase-server";
+import { hashToken, setTokenCookie, signToken } from "./tokens";
+
+export const ROOM_TTL_SEC = 60 * 60;
+
+/**
+ * 从 invite_secret 派生开发者授权密钥（确定性、无需额外列）。
+ * HMAC-SHA256(invite_secret, "developer_key") → base64url 前 16 字符。
+ */
+export function deriveDeveloperKey(inviteSecret: string): string {
+  const mac = createHmac("sha256", inviteSecret)
+    .update("developer_key")
+    .digest("base64url");
+  return \`dev_key_\${mac.slice(0, 16)}\`;
+}`,
+    },
     liveUrl: "https://contemporary-contact.vercel.app/",
-    motif: { big: "{ 60min }", sub: "TEMPORARY ROOM" },
   },
 ];

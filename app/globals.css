@@ -336,6 +336,107 @@ html { scroll-behavior: smooth; }
 }
 
 /* ===========================================================
+ *  代码块 CodeSnippet
+ * =========================================================== */
+.code-block {
+  position: relative;
+  background:
+    linear-gradient(135deg, #0a0e1b 0%, #050714 100%),
+    var(--stage-2);
+  border: 1px solid var(--hair);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(127,230,255,0.08) inset,
+    0 30px 60px -30px rgba(0,0,0,0.85),
+    0 0 28px rgba(214,169,87,0.05);
+}
+.code-block::before {
+  /* 扫描线背景 */
+  content: "";
+  position: absolute; inset: 0;
+  background-image: linear-gradient(
+    rgba(127, 230, 255, 0.045) 1px, transparent 1px
+  );
+  background-size: 100% 24px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+.code-block--media {
+  /* 占满 media-frame 容器：16:10 比例 */
+  aspect-ratio: 16 / 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.code-caption {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--hair);
+  background: rgba(127, 230, 255, 0.025);
+  z-index: 1;
+}
+.code-caption-bracket { color: var(--accent-cyan); }
+.code-caption-tag {
+  color: var(--accent);
+  font-weight: 600;
+}
+.code-caption-text { letter-spacing: 0.06em; }
+
+.code-pre {
+  position: relative;
+  margin: 0;
+  padding: 0.9rem 1rem 1rem;
+  flex: 1 1 auto;
+  overflow: auto;
+  background: transparent;
+  z-index: 1;
+}
+.code-block--media .code-pre {
+  padding: 1.2rem 1.4rem 1.4rem;
+}
+.code-content {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 0.92vw, 13.5px);
+  line-height: 1.65;
+  color: var(--ink);
+  white-space: pre;
+  letter-spacing: 0.005em;
+  text-shadow: 0 0 14px rgba(214, 169, 87, 0.18);
+}
+.code-block--media .code-content {
+  font-size: clamp(12px, 1.05vw, 14.5px);
+}
+.code-line { display: flex; }
+.code-ln {
+  flex: 0 0 auto;
+  margin-right: 1.1rem;
+  color: var(--accent-cyan);
+  opacity: 0.42;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+.code-src { flex: 1 1 auto; }
+
+@media (max-width: 640px) {
+  .code-block--media .code-content { font-size: 11.5px; }
+  .code-ln { margin-right: 0.7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-block::before { opacity: 0.3; }
+}
+
+/* ===========================================================
  *  作品展示（数据驱动，keynote 大卡）
  * =========================================================== */
 .media-frame {
