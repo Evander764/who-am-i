@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "rename-dorm": "node scripts/rename-dorm-photos.mjs",
     "serve-out": "npx -y serve out"
   },
   "dependencies": {

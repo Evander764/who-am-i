@@ -4,7 +4,6 @@ import { useCallback } from "react";
 import GenesisIntro from "@/components/act-intro/GenesisIntro";
 import PersonalCard from "@/components/act-paper/PersonalCard";
 import TraitsGrid from "@/components/act-paper/TraitsGrid";
-import FilmStrip from "@/components/act-paper/FilmStrip";
 import ContemporaryPreview from "@/components/act-paper/ContemporaryPreview";
 import TimetableShowcase from "@/components/act-paper/TimetableShowcase";
 import BadmintonCard from "@/components/act-paper/BadmintonCard";
@@ -21,7 +20,6 @@ export default function Home() {
       <GenesisIntro onComplete={onIntroDone} />
       <PersonalCard />
       <TraitsGrid />
-      <FilmStrip />
       <ContemporaryPreview />
       <TimetableShowcase />
       <BadmintonCard />

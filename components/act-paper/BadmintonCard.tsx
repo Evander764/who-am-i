@@ -10,7 +10,7 @@ export default function BadmintonCard() {
       aria-labelledby="court-title"
     >
       <div className="mx-auto w-full max-w-4xl">
-        <p className="section-eyebrow">SECTION · 06 · COURT</p>
+        <p className="section-eyebrow">SECTION · 05 · COURT</p>
         <h2 id="court-title" className="section-title">
           球场身份
         </h2>

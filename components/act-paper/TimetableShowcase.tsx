@@ -21,7 +21,7 @@ export default function TimetableShowcase() {
       aria-labelledby="timetable-title"
     >
       <div className="mx-auto w-full max-w-6xl">
-        <p className="section-eyebrow">SECTION · 05 · WORK 02</p>
+        <p className="section-eyebrow">SECTION · 04 · WORK 02</p>
         <div className="flex items-end justify-between flex-wrap gap-x-6 gap-y-2">
           <h2 id="timetable-title" className="section-title">
             Timetable

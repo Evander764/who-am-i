@@ -12,7 +12,7 @@ export default function ContemporaryPreview() {
       aria-labelledby="contemporary-title"
     >
       <div className="mx-auto w-full max-w-6xl">
-        <p className="section-eyebrow">SECTION · 04 · WORK 01</p>
+        <p className="section-eyebrow">SECTION · 03 · WORK 01</p>
         <div className="flex items-end justify-between flex-wrap gap-x-6 gap-y-2">
           <h2 id="contemporary-title" className="section-title">
             Contemporary-contact

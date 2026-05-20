@@ -33,7 +33,7 @@ export default function PersonalCard() {
             <br />
             把脑子里的事变成可看见的东西——
             <br />
-            网站 / 应用 / 一间住得下的宿舍。
+            网站 / 应用 / 各种小工具。
           </p>
           <p className="mt-10 font-mono text-[10px] tracking-[0.22em] uppercase text-ink-faint">
             STATUS · IN PROGRESS
