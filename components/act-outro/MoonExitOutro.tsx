@@ -44,19 +44,41 @@ export default function MoonExitOutro() {
 
         <div className="moon-copy">
           <p className="font-mono text-[11px] tracking-[0.32em] uppercase opacity-70">
-            END · LEDGER ARCHIVED
+            END · 期待合作
           </p>
           <h2
             className="mt-4 font-serif italic leading-tight"
             style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
           >
-            明天还有更多东西
+            期待一次
             <br />
-            要折腾。
+            认真的合作。
           </h2>
           <p className="mt-6 font-mono text-[11px] tracking-[0.28em] uppercase opacity-65">
             CONTACT · 电话 / 微信：15919765137
           </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="tel:15919765137"
+              className="cta"
+              style={{
+                background: "#fffdf1",
+                color: "#16140F",
+              }}
+            >
+              打电话 <span aria-hidden>→</span>
+            </a>
+            <a
+              href="weixin://dl/chat?15919765137"
+              className="cta-ghost"
+              style={{
+                borderColor: "rgba(255,253,241,0.8)",
+                color: "#fffdf1",
+              }}
+            >
+              加微信
+            </a>
+          </div>
         </div>
       </div>
     </section>
