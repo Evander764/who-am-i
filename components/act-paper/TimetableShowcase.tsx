@@ -3,6 +3,7 @@
 // 右：日出破晓 CSS 动画作为产品 demo 预览 (循环播放)
 //    动画样式定义在 globals.css，移植自 ritualHtml.ts:1026-1046
 import Image from "next/image";
+import { withBasePath } from "@/app/_lib/basePath";
 
 const SHOTS = [
   { src: "/images/timetable-ui/home.svg",     label: "HOME · 主页"    },
@@ -44,7 +45,7 @@ export default function TimetableShowcase() {
                 className={`tt-screenshot ${i === 0 ? "sm:col-span-2 sm:row-span-2" : ""}`}
               >
                 <Image
-                  src={s.src}
+                  src={withBasePath(s.src)}
                   alt={s.label}
                   fill
                   sizes="(max-width: 768px) 50vw, 30vw"

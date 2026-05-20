@@ -1,5 +1,6 @@
 import Image from "next/image";
 import PaperCard from "./PaperCard";
+import { withBasePath } from "@/app/_lib/basePath";
 
 export default function BadmintonCard() {
   return (
@@ -17,7 +18,7 @@ export default function BadmintonCard() {
         <PaperCard className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
           <div className="shrink-0 grid place-items-center w-24 h-24 rounded-full bg-paper border border-rule">
             <Image
-              src="/icons/badminton.svg"
+              src={withBasePath("/icons/badminton.svg")}
               alt="羽毛球图标"
               width={72}
               height={72}

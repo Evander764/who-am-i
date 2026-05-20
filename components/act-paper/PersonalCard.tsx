@@ -1,6 +1,7 @@
 import Image from "next/image";
 import PaperBanner from "./PaperBanner";
 import PaperCard from "./PaperCard";
+import { withBasePath } from "@/app/_lib/basePath";
 
 export default function PersonalCard() {
   return (
@@ -48,7 +49,7 @@ export default function PersonalCard() {
               <div className="shrink-0 rounded-full overflow-hidden border border-rule"
                    style={{ width: 112, height: 112 }}>
                 <Image
-                  src="/images/portrait/main.jpg"
+                  src={withBasePath("/images/portrait/main.jpg")}
                   alt="马新淳人像"
                   width={112}
                   height={112}

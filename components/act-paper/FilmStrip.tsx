@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { frames } from "@/app/_data/renovation";
+import { withBasePath } from "@/app/_lib/basePath";
 
 export default function FilmStrip() {
   const stripRef = useRef<HTMLDivElement | null>(null);
@@ -68,7 +69,7 @@ export default function FilmStrip() {
               <figure key={f.id} className="film-frame">
                 <div className="film-image">
                   <Image
-                    src={f.src}
+                    src={withBasePath(f.src)}
                     alt={`宿舍整改 ${f.step}`}
                     fill
                     sizes="(max-width: 768px) 70vw, 28vw"
