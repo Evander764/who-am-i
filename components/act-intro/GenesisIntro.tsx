@@ -394,7 +394,7 @@ export default function GenesisIntro({ durationMs = 8400, onComplete }: Props) {
 
       <div className="cosmos-title">
         <h1>Who am I · 马新淳</h1>
-        <p className="sub">自我介绍 · 寻求合作 · 2026</p>
+        <p className="sub">[ BOOT · 自我介绍 · 寻求合作 · 2026 ]</p>
       </div>
 
       <p className="cosmos-hint">scroll ↓ or wait</p>

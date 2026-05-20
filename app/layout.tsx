@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Newsreader, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import SiteBackdrop from "@/components/fx/SiteBackdrop";
+import CursorGlow from "@/components/fx/CursorGlow";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -37,6 +39,8 @@ export default function RootLayout({
       className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable}`}
     >
       <body className="min-h-full flex flex-col">
+        <SiteBackdrop />
+        <CursorGlow />
         <div className="relative z-[1] flex flex-1 flex-col">{children}</div>
       </body>
     </html>

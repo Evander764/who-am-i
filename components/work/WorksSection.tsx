@@ -7,13 +7,19 @@ export default function WorksSection() {
     <section id="works" className="stage" aria-labelledby="works-heading">
       <div className="wrap-wide">
         <Reveal>
-          <p className="kicker">作品 · WORKS</p>
+          <p className="kicker">SECTION 02 / WORKS</p>
         </Reveal>
         <Reveal delayMs={120}>
           <h2
             id="works-heading"
-            className="headline mt-6"
-            style={{ fontSize: "clamp(2rem, 4.6vw, 3.4rem)" }}
+            className="mt-8 font-mono"
+            style={{
+              fontSize: "clamp(2rem, 5vw, 3.6rem)",
+              letterSpacing: "-0.01em",
+              color: "var(--ink)",
+              textShadow: "0 0 22px rgba(214,169,87,0.22)",
+              lineHeight: 1.1,
+            }}
           >
             最近在做、
             <br className="sm:hidden" />

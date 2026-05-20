@@ -2,6 +2,7 @@ import Image from "next/image";
 import { withBasePath } from "@/app/_lib/basePath";
 import type { Work } from "@/app/_data/works";
 import GalleryRotator from "@/components/work/GalleryRotator";
+import HudTilt from "@/components/work/HudTilt";
 
 type Props = {
   work: Work;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export default function WorkRow({ work, reverse = false }: Props) {
-  const mediaCol =
+  const innerMedia =
     work.gallery && work.gallery.length > 0 ? (
       <GalleryRotator images={work.gallery} />
     ) : (
@@ -33,9 +34,19 @@ export default function WorkRow({ work, reverse = false }: Props) {
       </div>
     );
 
+  const mediaCol = <HudTilt>{innerMedia}</HudTilt>;
+
   const textCol = (
     <div>
-      <h3 className="headline" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
+      <h3
+        className="font-mono"
+        style={{
+          fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
+          letterSpacing: "0.02em",
+          color: "var(--ink)",
+          textShadow: "0 0 16px rgba(214,169,87,0.2)",
+        }}
+      >
         {work.title}
       </h3>
       <p className="lede mt-4">{work.tagline}</p>

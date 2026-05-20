@@ -43,8 +43,9 @@ export default function MoonExitOutro() {
         <span className="horizon" aria-hidden />
 
         <div className="moon-copy">
-          <p className="font-mono text-[11px] tracking-[0.32em] uppercase opacity-70">
-            END · 期待合作
+          <p className="font-mono text-[11px] tracking-[0.32em] uppercase opacity-75">
+            <span style={{ color: "#7FE6FF" }}>[</span> END · 期待合作{" "}
+            <span style={{ color: "#7FE6FF" }}>]</span>
           </p>
           <h2
             className="mt-4 font-serif italic leading-tight"
@@ -64,9 +65,12 @@ export default function MoonExitOutro() {
               style={{
                 background: "#fffdf1",
                 color: "#16140F",
+                boxShadow:
+                  "0 0 0 1px #fffdf1, 0 8px 32px -8px rgba(255,253,241,0.5)",
               }}
             >
-              打电话 <span aria-hidden>→</span>
+              <span aria-hidden style={{ color: "#7FE6FF" }}>{"> "}</span>
+              打电话
             </a>
             <a
               href="weixin://dl/chat?15919765137"
@@ -76,6 +80,7 @@ export default function MoonExitOutro() {
                 color: "#fffdf1",
               }}
             >
+              <span aria-hidden style={{ color: "#7FE6FF" }}>{"> "}</span>
               加微信
             </a>
           </div>
