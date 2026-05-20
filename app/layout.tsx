@@ -3,6 +3,7 @@ import { Inter, Newsreader, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SiteBackdrop from "@/components/fx/SiteBackdrop";
 import CursorGlow from "@/components/fx/CursorGlow";
+import AmbientPlayer from "@/components/fx/AmbientPlayer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <SiteBackdrop />
         <CursorGlow />
+        <AmbientPlayer src="/audio/ambient.mp3" />
         <div className="relative z-[1] flex flex-1 flex-col">{children}</div>
       </body>
     </html>

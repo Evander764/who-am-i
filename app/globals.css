@@ -336,6 +336,67 @@ html { scroll-behavior: smooth; }
 }
 
 /* ===========================================================
+ *  Ambient BGM toggle（与 cosmos-skip 视觉对称，固定 bottom-left）
+ * =========================================================== */
+.ambient-toggle {
+  position: fixed;
+  bottom: 2.2rem;
+  left: 2.2rem;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,250,230,0.7);
+  border: 1px solid rgba(255,250,230,0.3);
+  padding: 0.5rem 0.9rem;
+  background: rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: color 200ms, border-color 200ms, background 200ms;
+}
+.ambient-toggle:hover {
+  color: #fff;
+  border-color: rgba(255,250,230,0.6);
+  background: rgba(0,0,0,0.6);
+}
+.ambient-toggle[data-on="true"] {
+  color: #D6A957 !important;
+  border-color: #D6A957 !important;
+  background: rgba(0,0,0,0.5);
+}
+.ambient-toggle .pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,250,230,0.35);
+  flex: 0 0 auto;
+}
+.ambient-toggle[data-on="true"] .pulse {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  animation: ambient-pulse 1.6s ease-in-out infinite;
+}
+@keyframes ambient-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(1.35); }
+}
+@media (max-width: 640px) {
+  .ambient-toggle {
+    bottom: 1.4rem;
+    left: 1.4rem;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    padding: 0.45rem 0.7rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-toggle[data-on="true"] .pulse { animation: none; }
+}
+
+/* ===========================================================
  *  代码块 CodeSnippet
  * =========================================================== */
 .code-block {
