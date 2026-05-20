@@ -1,8 +1,116 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
-  <rect width="1600" height="1000" fill="#0a0908"/>
-  <rect x="40" y="40" width="1520" height="920" fill="none" stroke="#2A2520" stroke-width="1.5" stroke-dasharray="4 6"/>
-  <text x="800" y="500" text-anchor="middle" font-family="'JetBrains Mono',Consolas,monospace"
-        font-size="22" letter-spacing="0.3em" fill="rgba(255,250,230,0.42)">SCREENSHOT TBD · STATS</text>
-  <text x="800" y="560" text-anchor="middle" font-family="'JetBrains Mono',Consolas,monospace"
-        font-size="11" letter-spacing="0.32em" fill="rgba(255,250,230,0.28)">TIMETABLE · 05 / 05</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" font-family="'JetBrains Mono',ui-monospace,Consolas,monospace">
+  <defs>
+    <linearGradient id="bg5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050714"/>
+      <stop offset="1" stop-color="#02040b"/>
+    </linearGradient>
+    <linearGradient id="barGold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#D6A957"/>
+      <stop offset="1" stop-color="rgba(214,169,87,0.5)"/>
+    </linearGradient>
+    <linearGradient id="barCyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7FE6FF"/>
+      <stop offset="1" stop-color="rgba(127,230,255,0.4)"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg5)"/>
+
+  <text x="80" y="62" font-size="12" letter-spacing="0.28em" fill="rgba(127,230,255,0.7)">[ TIMETABLE / STATS / 时间审计 ]</text>
+  <text x="80" y="130" font-size="42" letter-spacing="-0.02em" fill="#F6F2E8">时间审计 · 本周</text>
+  <text x="80" y="166" font-size="14" letter-spacing="0.1em" fill="rgba(246,242,232,0.55)">5/14 – 5/20 · 总活跃 42h 18m · 7 类 · 自动抓取 AI / Web 浏览器使用</text>
+
+  <!-- tabs -->
+  <g font-size="13" letter-spacing="0.16em">
+    <text x="1080" y="62" fill="rgba(246,242,232,0.4)">DAY</text>
+    <text x="1160" y="62" fill="#D6A957">WEEK</text>
+    <line x1="1158" y1="76" x2="1230" y2="76" stroke="#D6A957" stroke-width="1.5"/>
+    <text x="1260" y="62" fill="rgba(246,242,232,0.4)">MONTH</text>
+    <text x="1360" y="62" fill="rgba(246,242,232,0.4)">YEAR</text>
+    <text x="1450" y="62" fill="rgba(127,230,255,0.7)">[ EXPORT ]</text>
+  </g>
+
+  <!-- summary numbers -->
+  <g>
+    <text x="80" y="252" font-size="11" letter-spacing="0.28em" fill="rgba(127,230,255,0.7)">[ 总览 ]</text>
+    <line x1="80" y1="270" x2="200" y2="270" stroke="#D6A957" stroke-width="1.5"/>
+
+    <text x="80" y="350" font-size="56" letter-spacing="-0.02em" fill="#F6F2E8" font-weight="500">42.3</text>
+    <text x="220" y="350" font-size="16" fill="rgba(246,242,232,0.55)">小时</text>
+    <text x="80" y="378" font-size="11" letter-spacing="0.16em" fill="rgba(214,169,87,0.7)">↑ 6.2 vs 上周</text>
+
+    <text x="400" y="350" font-size="56" letter-spacing="-0.02em" fill="#7FE6FF" font-weight="500">6.04</text>
+    <text x="552" y="350" font-size="16" fill="rgba(246,242,232,0.55)">日均</text>
+    <text x="400" y="378" font-size="11" letter-spacing="0.16em" fill="rgba(127,230,255,0.7)">EVEN DISTRIBUTION</text>
+
+    <text x="720" y="350" font-size="56" letter-spacing="-0.02em" fill="#F6F2E8" font-weight="500">67%</text>
+    <text x="852" y="350" font-size="16" fill="rgba(246,242,232,0.55)">任务完成</text>
+    <text x="720" y="378" font-size="11" letter-spacing="0.16em" fill="rgba(214,169,87,0.7)">28 / 42 DONE</text>
+
+    <text x="1080" y="350" font-size="56" letter-spacing="-0.02em" fill="#F6F2E8" font-weight="500">5</text>
+    <text x="1132" y="350" font-size="16" fill="rgba(246,242,232,0.55)">天连续仪式</text>
+    <text x="1080" y="378" font-size="11" letter-spacing="0.16em" fill="rgba(214,169,87,0.7)">STREAK · BEST 12</text>
+  </g>
+
+  <!-- divider -->
+  <line x1="80" y1="450" x2="1520" y2="450" stroke="rgba(127,230,255,0.12)" stroke-width="1"/>
+
+  <!-- breakdown -->
+  <text x="80" y="500" font-size="11" letter-spacing="0.28em" fill="rgba(127,230,255,0.7)">[ 类目 · 7 ]</text>
+  <line x1="80" y1="518" x2="200" y2="518" stroke="#D6A957" stroke-width="1.5"/>
+
+  <g font-size="14" letter-spacing="0.04em">
+    <!-- 学习 -->
+    <text x="80" y="588" fill="#F6F2E8">学习</text>
+    <text x="180" y="588" fill="rgba(246,242,232,0.55)" font-size="11" letter-spacing="0.16em">14.2h</text>
+    <rect x="280" y="572" width="1100" height="20" fill="rgba(127,230,255,0.06)"/>
+    <rect x="280" y="572" width="850" height="20" fill="url(#barGold)"/>
+    <text x="1410" y="588" font-size="11" letter-spacing="0.16em" fill="rgba(214,169,87,0.85)">33.5%</text>
+
+    <!-- 编程 -->
+    <text x="80" y="636" fill="#F6F2E8">编程</text>
+    <text x="180" y="636" fill="rgba(246,242,232,0.55)" font-size="11" letter-spacing="0.16em">9.8h</text>
+    <rect x="280" y="620" width="1100" height="20" fill="rgba(127,230,255,0.06)"/>
+    <rect x="280" y="620" width="586" height="20" fill="url(#barCyan)"/>
+    <text x="1410" y="636" font-size="11" letter-spacing="0.16em" fill="rgba(127,230,255,0.85)">23.2%</text>
+
+    <!-- 阅读 -->
+    <text x="80" y="684" fill="#F6F2E8">阅读</text>
+    <text x="180" y="684" fill="rgba(246,242,232,0.55)" font-size="11" letter-spacing="0.16em">6.4h</text>
+    <rect x="280" y="668" width="1100" height="20" fill="rgba(127,230,255,0.06)"/>
+    <rect x="280" y="668" width="384" height="20" fill="url(#barGold)" opacity="0.85"/>
+    <text x="1410" y="684" font-size="11" letter-spacing="0.16em" fill="rgba(214,169,87,0.7)">15.1%</text>
+
+    <!-- 写作 -->
+    <text x="80" y="732" fill="#F6F2E8">写作</text>
+    <text x="180" y="732" fill="rgba(246,242,232,0.55)" font-size="11" letter-spacing="0.16em">4.1h</text>
+    <rect x="280" y="716" width="1100" height="20" fill="rgba(127,230,255,0.06)"/>
+    <rect x="280" y="716" width="246" height="20" fill="url(#barCyan)" opacity="0.85"/>
+    <text x="1410" y="732" font-size="11" letter-spacing="0.16em" fill="rgba(127,230,255,0.7)">9.7%</text>
+
+    <!-- 运动 -->
+    <text x="80" y="780" fill="#F6F2E8">运动</text>
+    <text x="180" y="780" fill="rgba(246,242,232,0.55)" font-size="11" letter-spacing="0.16em">2.8h</text>
+    <rect x="280" y="764" width="1100" height="20" fill="rgba(127,230,255,0.06)"/>
+    <rect x="280" y="764" width="168" height="20" fill="url(#barGold)" opacity="0.6"/>
+    <text x="1410" y="780" font-size="11" letter-spacing="0.16em" fill="rgba(214,169,87,0.6)">6.6%</text>
+
+    <!-- 娱乐 -->
+    <text x="80" y="828" fill="#F6F2E8">娱乐</text>
+    <text x="180" y="828" fill="rgba(246,242,232,0.55)" font-size="11" letter-spacing="0.16em">3.2h</text>
+    <rect x="280" y="812" width="1100" height="20" fill="rgba(127,230,255,0.06)"/>
+    <rect x="280" y="812" width="192" height="20" fill="url(#barCyan)" opacity="0.5"/>
+    <text x="1410" y="828" font-size="11" letter-spacing="0.16em" fill="rgba(127,230,255,0.5)">7.6%</text>
+
+    <!-- 其他 -->
+    <text x="80" y="876" fill="rgba(246,242,232,0.55)">其他</text>
+    <text x="180" y="876" fill="rgba(246,242,232,0.4)" font-size="11" letter-spacing="0.16em">1.8h</text>
+    <rect x="280" y="860" width="1100" height="20" fill="rgba(127,230,255,0.06)"/>
+    <rect x="280" y="860" width="108" height="20" fill="rgba(246,242,232,0.3)"/>
+    <text x="1410" y="876" font-size="11" letter-spacing="0.16em" fill="rgba(246,242,232,0.4)">4.3%</text>
+  </g>
+
+  <!-- bottom bar -->
+  <line x1="80" y1="930" x2="1520" y2="930" stroke="rgba(127,230,255,0.12)" stroke-width="1"/>
+  <text x="80" y="966" font-size="10" letter-spacing="0.3em" fill="rgba(246,242,232,0.32)">AUTO-CAPTURED · BROWSER + AI USAGE · LOCAL ONLY</text>
+  <text x="1340" y="966" font-size="10" letter-spacing="0.3em" fill="rgba(214,169,87,0.7)">UPDATED 14:23 · LIVE</text>
 </svg>
