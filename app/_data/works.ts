@@ -74,17 +74,6 @@ export const WORKS: Work[] = [
       },
       { src: "/images/timetable-ui/stats.svg", alt: "Timetable 统计：时间审计" },
     ],
-    codeSnippet: {
-      caption: "src/shared/utils/countdownEvents.ts",
-      lang: "ts",
-      code: `export function getRemainingBeijingDayTime(now = new Date()): string {
-  const diff = Math.max(0, getBeijingDayExpiryDate(formatBeijingDateKey(now)).getTime() - now.getTime())
-  const hours = Math.floor(diff / (1000 * 60 * 60))
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000)
-  return [hours, minutes, seconds].map(pad2).join(':')
-}`,
-    },
     repoUrl: "https://github.com/Evander764/Timetable",
   },
   {
@@ -101,12 +90,24 @@ export const WORKS: Work[] = [
       "Edge TTS 字级同步",
       "MiniMax 句级字幕",
       "时间轴构建",
-      "场景库（标题 / 引文 / 数字 / 终端 / 数据条 / 粒子 / 水墨 / 线 / 字符）",
+      "14 种场景库",
       "主题预设",
       "Prompt 工程库",
       "单文件 HTML 渲染",
     ],
-    motif: { big: "{ SCRIPT → MP4? }", sub: "TXT TO PLAYABLE HTML" },
+    codeSnippet: {
+      caption: "timeline.py",
+      lang: "py",
+      code: `import re
+from typing import Any
+
+# 与 template/scenes.js 中的场景实现一一对应
+# 前 6 个 technical mood 用；后 8 个 establishing.../scale 是 cinematic mood 用
+SCENE_TYPES = (
+    "title", "bignum", "terminal", "databars", "particles", "quote",
+    "establishing", "closeup", "wide", "single", "pair", "rain", "rays", "scale",
+)`,
+    },
   },
   {
     id: "contemporary-contact",
