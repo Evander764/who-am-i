@@ -19,7 +19,7 @@ export const WORKS: Work[] = [
     id: "beauty-gallery",
     title: "Beauty · 暗夜画廊",
     tagline:
-      "为「双阶段审美坐标系生图法」做的纯静态图集。Three.js portal 着色器、速度感失真、横向滚动 brutalist 卡片。",
+      "一份纯静态图集展示站。Three.js portal 着色器、速度感失真、横向滚动 brutalist 卡片。",
     role: "独立设计 + 开发",
     tech: ["Three.js", "GSAP", "Sharp", "esbuild", "WebGL", "原生 JS"],
     outcome:
