@@ -235,6 +235,48 @@ html { scroll-behavior: smooth; }
   padding: 0.28rem 0.7rem;
 }
 
+/* 功能模块行：·分隔的内联列表（中文友好） */
+.feature-line {
+  margin-top: 0.9rem;
+  color: var(--ink-soft);
+  font-size: clamp(.95rem, 1.15vw, 1.08rem);
+  line-height: 1.7;
+}
+
+/* 轮播：图片淡入淡出 + 圆点导航 */
+.gallery-img {
+  opacity: 0;
+  transition: opacity 500ms cubic-bezier(.4, 0, .2, 1);
+  object-fit: cover;
+}
+.gallery-img.is-active { opacity: 1; }
+
+.gallery-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+.gallery-dot {
+  /* 视觉 8x8 + padding 8 撑出 24x24 触控区 */
+  width: 24px;
+  height: 24px;
+  padding: 8px;
+  border-radius: 999px;
+  background: var(--hair);
+  background-clip: content-box;
+  border: 0;
+  cursor: pointer;
+  transition: background 200ms ease, transform 200ms ease;
+}
+.gallery-dot:hover { background: var(--accent-soft); }
+.gallery-dot[data-active="true"] { background: var(--accent); transform: scale(1.15); }
+.gallery-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-img { transition: none; }
+}
+
 /* ===========================================================
  *  通用：进入视口的渐入（Reveal 组件配合）
  * =========================================================== */

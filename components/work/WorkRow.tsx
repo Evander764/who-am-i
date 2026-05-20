@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { withBasePath } from "@/app/_lib/basePath";
 import type { Work } from "@/app/_data/works";
+import GalleryRotator from "@/components/work/GalleryRotator";
 
 type Props = {
   work: Work;
@@ -8,26 +9,29 @@ type Props = {
 };
 
 export default function WorkRow({ work, reverse = false }: Props) {
-  const mediaCol = (
-    <div className="media-frame">
-      {work.image ? (
-        <Image
-          src={withBasePath(work.image)}
-          alt={`${work.title} 预览图`}
-          width={1280}
-          height={800}
-          className="object-cover"
-        />
-      ) : work.motif ? (
-        <div className="work-motif">
-          <div>
-            <p className="motif-big">{work.motif.big}</p>
-            <p className="motif-sub">{work.motif.sub}</p>
+  const mediaCol =
+    work.gallery && work.gallery.length > 0 ? (
+      <GalleryRotator images={work.gallery} />
+    ) : (
+      <div className="media-frame">
+        {work.image ? (
+          <Image
+            src={withBasePath(work.image)}
+            alt={`${work.title} 预览图`}
+            width={1280}
+            height={800}
+            className="object-cover"
+          />
+        ) : work.motif ? (
+          <div className="work-motif">
+            <div>
+              <p className="motif-big">{work.motif.big}</p>
+              <p className="motif-sub">{work.motif.sub}</p>
+            </div>
           </div>
-        </div>
-      ) : null}
-    </div>
-  );
+        ) : null}
+      </div>
+    );
 
   const textCol = (
     <div>
@@ -46,6 +50,10 @@ export default function WorkRow({ work, reverse = false }: Props) {
             </span>
           ))}
         </div>
+      ) : null}
+
+      {work.features && work.features.length > 0 ? (
+        <p className="feature-line">{work.features.join(" · ")}</p>
       ) : null}
 
       {(work.liveUrl || work.repoUrl) ? (
