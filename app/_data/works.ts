@@ -15,14 +15,33 @@ export type Work = {
 
 export const WORKS: Work[] = [
   {
-    id: "contemporary-contact",
-    title: "Contemporary-contact",
-    tagline: "一个会过期的小群。开 60 分钟，聊完就散，没有账号、没有历史。",
+    id: "beauty-gallery",
+    title: "Beauty · 暗夜画廊",
+    tagline:
+      "为「双阶段审美坐标系生图法」做的纯静态图集。Three.js portal 着色器、速度感失真、横向滚动 brutalist 卡片。",
     role: "独立设计 + 开发",
-    tech: ["Next.js", "Supabase", "Vercel"],
-    outcome: "线上可用",
-    liveUrl: "https://contemporary-contact.vercel.app/",
-    motif: { big: "{ 60min }", sub: "TEMPORARY ROOM" },
+    tech: ["Three.js", "GSAP", "Sharp", "esbuild", "WebGL", "原生 JS"],
+    outcome:
+      "v2 已上线 · 113 张图 · 多档 WebP + LQIP 自动管线 · 速度感与无障碍兼顾",
+    features: [
+      "全屏 Hero · WebGL Portal",
+      "自定义三环涟漪光标",
+      "横向滚动画廊",
+      "速度感失真",
+      "Prompt 浮出面板",
+      "焦点追踪",
+      "触屏 / Reduced-Motion 降级",
+      "键盘可达",
+    ],
+    gallery: [
+      { src: "/images/works/beauty/shulin-001-960.webp", alt: "Beauty · 暗夜画廊 · 木椅旷野" },
+      { src: "/images/works/beauty/shulin-002-960.webp", alt: "Beauty · 暗夜画廊 · 树林系列 002" },
+      { src: "/images/works/beauty/shulin-003-960.webp", alt: "Beauty · 暗夜画廊 · 树林系列 003" },
+      { src: "/images/works/beauty/shulin-004-960.webp", alt: "Beauty · 暗夜画廊 · 树林系列 004" },
+      { src: "/images/works/beauty/feng-shen-040-960.webp", alt: "Beauty · 暗夜画廊 · 风神 040" },
+    ],
+    liveUrl: "https://evander764.github.io/beauty-gallery/",
+    repoUrl: "https://github.com/Evander764/beauty-gallery",
   },
   {
     id: "timetable",
@@ -55,5 +74,36 @@ export const WORKS: Work[] = [
       { src: "/images/timetable-ui/stats.svg", alt: "Timetable 统计：时间审计" },
     ],
     repoUrl: "https://github.com/Evander764/Timetable",
+  },
+  {
+    id: "video-maker",
+    title: "Video-maker",
+    tagline:
+      "文案进、单文件 HTML 视频出。音频做时间标准、字幕逐句精确同步、9 种场景轮换，浏览器打开即播。",
+    role: "独立设计 + 开发",
+    tech: ["Python 3", "edge-tts", "MiniMax T2A", "HTML5 Canvas", "Base64 内嵌音频"],
+    outcome:
+      "9 种场景 · 2 套 TTS 引擎 · 3 种主题预设 · 7 个可用 demo · 零外链单文件 HTML",
+    features: [
+      "中文分句引擎",
+      "Edge TTS 字级同步",
+      "MiniMax 句级字幕",
+      "时间轴构建",
+      "场景库（标题 / 引文 / 数字 / 终端 / 数据条 / 粒子 / 水墨 / 线 / 字符）",
+      "主题预设",
+      "Prompt 工程库",
+      "单文件 HTML 渲染",
+    ],
+    motif: { big: "{ SCRIPT → MP4? }", sub: "TXT TO PLAYABLE HTML" },
+  },
+  {
+    id: "contemporary-contact",
+    title: "Contemporary-contact",
+    tagline: "一个会过期的小群。开 60 分钟，聊完就散，没有账号、没有历史。",
+    role: "独立设计 + 开发",
+    tech: ["Next.js", "Supabase", "Vercel"],
+    outcome: "线上可用",
+    liveUrl: "https://contemporary-contact.vercel.app/",
+    motif: { big: "{ 60min }", sub: "TEMPORARY ROOM" },
   },
 ];
