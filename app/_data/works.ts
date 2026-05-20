@@ -65,14 +65,11 @@ export const WORKS: Work[] = [
       "每日仪式",
     ],
     gallery: [
-      { src: "/images/timetable-ui/home.svg", alt: "Timetable 首页：核心信息一屏看全" },
-      { src: "/images/timetable-ui/schedule.svg", alt: "Timetable 课表：当周日程" },
-      { src: "/images/timetable-ui/ritual.svg", alt: "Timetable 仪式：日开 / 日结动画" },
-      {
-        src: "/images/timetable-ui/settings.svg",
-        alt: "Timetable 设置：偏好与桌面 Widget 配置",
-      },
-      { src: "/images/timetable-ui/stats.svg", alt: "Timetable 统计：时间审计" },
+      { src: "/images/works/timetable/01-home.png", alt: "Timetable 首页：核心信息一屏看全" },
+      { src: "/images/works/timetable/02-schedule.png", alt: "Timetable 课表：当周日程" },
+      { src: "/images/works/timetable/03-ritual.png", alt: "Timetable 仪式：日开 / 日结动画" },
+      { src: "/images/works/timetable/04-settings.png", alt: "Timetable 设置：偏好与桌面 Widget 配置" },
+      { src: "/images/works/timetable/05-stats.png", alt: "Timetable 统计：时间审计" },
     ],
     repoUrl: "https://github.com/Evander764/Timetable",
   },
@@ -95,19 +92,13 @@ export const WORKS: Work[] = [
       "Prompt 工程库",
       "单文件 HTML 渲染",
     ],
-    codeSnippet: {
-      caption: "timeline.py",
-      lang: "py",
-      code: `import re
-from typing import Any
-
-# 与 template/scenes.js 中的场景实现一一对应
-# 前 6 个 technical mood 用；后 8 个 establishing.../scale 是 cinematic mood 用
-SCENE_TYPES = (
-    "title", "bignum", "terminal", "databars", "particles", "quote",
-    "establishing", "closeup", "wide", "single", "pair", "rain", "rays", "scale",
-)`,
-    },
+    gallery: [
+      { src: "/images/works/video-maker/01-establishing.png", alt: "Video-maker · 「诚实，是对自己的」开场镜头" },
+      { src: "/images/works/video-maker/02-single.png", alt: "Video-maker · single 场景：「实」字字源" },
+      { src: "/images/works/video-maker/03-pair.png", alt: "Video-maker · pair 场景：言行合一" },
+      { src: "/images/works/video-maker/04-rain.png", alt: "Video-maker · rain 场景：第一站是自己" },
+      { src: "/images/works/video-maker/05-scale.png", alt: "Video-maker · scale 场景：认出 / 感受 / 接纳" },
+    ],
   },
   {
     id: "contemporary-contact",
@@ -123,27 +114,11 @@ SCENE_TYPES = (
       "HMAC-SHA256 派生授权密钥",
       "Server Actions",
     ],
-    codeSnippet: {
-      caption: "lib/rooms.ts",
-      lang: "ts",
-      code: `import "server-only";
-import { createHash, createHmac, randomBytes, randomUUID } from "node:crypto";
-import { db } from "./supabase-server";
-import { hashToken, setTokenCookie, signToken } from "./tokens";
-
-export const ROOM_TTL_SEC = 60 * 60;
-
-/**
- * 从 invite_secret 派生开发者授权密钥（确定性、无需额外列）。
- * HMAC-SHA256(invite_secret, "developer_key") → base64url 前 16 字符。
- */
-export function deriveDeveloperKey(inviteSecret: string): string {
-  const mac = createHmac("sha256", inviteSecret)
-    .update("developer_key")
-    .digest("base64url");
-  return \`dev_key_\${mac.slice(0, 16)}\`;
-}`,
-    },
+    gallery: [
+      { src: "/images/works/contemporary-contact/01-landing.png", alt: "Contemporary-contact · 首页：来挂个临时号子" },
+      { src: "/images/works/contemporary-contact/02-host.png", alt: "Contemporary-contact · 递个开房申请" },
+      { src: "/images/works/contemporary-contact/03-join.png", alt: "Contemporary-contact · 入伙：聊个天" },
+    ],
     liveUrl: "https://contemporary-contact.vercel.app/",
   },
 ];
