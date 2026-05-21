@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Newsreader, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SiteBackdrop from "@/components/fx/SiteBackdrop";
@@ -29,6 +29,13 @@ export const metadata: Metadata = {
   title: "马新淳 · Who am I",
   description:
     "马新淳的个人介绍站。独立开发者，正在 AI 时代做能用的产品。欢迎洽谈合作。",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#02040b",
 };
 
 export default function RootLayout({

@@ -27,13 +27,13 @@ export default function WorksSection() {
           </h2>
         </Reveal>
 
-        <div className="mt-16 space-y-20 lg:space-y-28">
+        <div className="mt-10 sm:mt-16 space-y-12 sm:space-y-20 lg:space-y-28">
           {WORKS.map((work, i) => (
             <div key={work.id}>
               <Reveal>
                 <WorkRow work={work} reverse={i % 2 === 1} />
               </Reveal>
-              {i < WORKS.length - 1 ? <hr className="hair-line mt-20 lg:mt-28" /> : null}
+              {i < WORKS.length - 1 ? <hr className="hair-line mt-12 sm:mt-20 lg:mt-28" /> : null}
             </div>
           ))}
         </div>

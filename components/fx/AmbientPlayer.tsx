@@ -86,7 +86,8 @@ export default function AmbientPlayer({ src = "/audio/ambient.mp3" }: Props) {
         }}
       >
         <span className="pulse" aria-hidden />
-        <span>{enabled ? "♪ SOUND ON" : "♪ SOUND OFF"}</span>
+        <span className="ambient-toggle-text">{enabled ? "♪ SOUND ON" : "♪ SOUND OFF"}</span>
+        <span className="ambient-toggle-icon" aria-hidden>♪</span>
       </button>
     </>
   );

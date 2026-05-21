@@ -143,6 +143,27 @@ html { scroll-behavior: smooth; }
 .stage-tight {
   padding: clamp(3.5rem, 8vh, 6rem) clamp(1.5rem, 6vw, 4rem);
 }
+/* 手机端 stage padding 收紧：上下太空白 */
+@media (max-width: 640px) {
+  .stage {
+    padding: 3rem 1.25rem;
+  }
+  .stage-tight {
+    padding: 2.25rem 1.25rem;
+  }
+}
+
+/* Hero 头像在手机端放大 + 居中 */
+.hero-portrait {
+  width: 132px;
+  height: 132px;
+}
+@media (max-width: 640px) {
+  .hero-portrait {
+    width: 188px;
+    height: 188px;
+  }
+}
 .wrap {
   width: 100%;
   max-width: 1080px;
@@ -192,6 +213,13 @@ html { scroll-behavior: smooth; }
   color: var(--ink);
   text-shadow: 0 0 28px rgba(214, 169, 87, 0.18);
 }
+@media (max-width: 640px) {
+  .display {
+    font-size: 1.85rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+}
 .display-serif {
   font-family: var(--font-serif);
   font-style: italic;
@@ -235,6 +263,14 @@ html { scroll-behavior: smooth; }
   gap: 0.7rem;
   color: var(--accent-soft);
   border-bottom-color: var(--accent-soft);
+}
+/* 手机端文字链补内边距，确保 44pt 触摸目标 */
+@media (max-width: 640px) {
+  .link-gold {
+    padding: 0.55rem 0;
+    font-size: 1rem;
+    min-height: 44px;
+  }
 }
 
 .cta {
@@ -374,6 +410,7 @@ html { scroll-behavior: smooth; }
   background: rgba(255,250,230,0.35);
   flex: 0 0 auto;
 }
+.ambient-toggle-icon { display: none; }
 .ambient-toggle[data-on="true"] .pulse {
   background: var(--accent);
   box-shadow: 0 0 10px var(--accent);
@@ -385,11 +422,32 @@ html { scroll-behavior: smooth; }
 }
 @media (max-width: 640px) {
   .ambient-toggle {
-    bottom: 1.4rem;
-    left: 1.4rem;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    padding: 0.45rem 0.7rem;
+    /* 手机端：仅图标，移到右下安全区，避免遮挡正文 */
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    right: calc(1rem + env(safe-area-inset-right, 0px));
+    left: auto;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    gap: 0;
+    justify-content: center;
+    background: rgba(2,4,11,0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .ambient-toggle-text { display: none; }
+  .ambient-toggle-icon {
+    display: block;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+  .ambient-toggle .pulse {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 5px;
+    height: 5px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -767,6 +825,15 @@ html { scroll-behavior: smooth; }
   transition: color 200ms, border-color 200ms, background 200ms;
 }
 .cosmos-skip:hover { color: #fff; border-color: rgba(255,250,230,0.6); background: rgba(0,0,0,0.6); }
+@media (max-width: 640px) {
+  .cosmos-skip {
+    bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px));
+    right: calc(1.4rem + env(safe-area-inset-right, 0px));
+    padding: 0.55rem 0.95rem;
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+  }
+}
 
 .cosmos-hint {
   position: absolute;
@@ -787,6 +854,12 @@ html { scroll-behavior: smooth; }
 @keyframes hintBlink {
   0%, 100% { opacity: 0.25; }
   50%      { opacity: 0.75; }
+}
+@media (max-width: 640px) {
+  /* 手机端 SKIP 已经足够明显，藏掉重复的 scroll hint，避免与 SKIP 重叠 */
+  .cosmos-hint { display: none; }
+  .cosmos-title h1 { font-size: clamp(3rem, 13vw, 5.5rem); }
+  .cosmos-title { top: 36%; }
 }
 
 /* ===========================================================

@@ -13,7 +13,7 @@ export default function Hero() {
         </Reveal>
 
         <Reveal delayMs={120}>
-          <h1 id="hero-claim" className="display mt-8">
+          <h1 id="hero-claim" className="display mt-6 sm:mt-8">
             <Typewriter
               lines={["在 AI 时代，", "想象，是最重要的事情。"]}
               speedMs={58}
@@ -24,16 +24,14 @@ export default function Hero() {
         </Reveal>
 
         <Reveal delayMs={260}>
-          <hr className="accent-rule mt-12" />
+          <hr className="accent-rule mt-8 sm:mt-12" />
         </Reveal>
 
         <Reveal delayMs={380}>
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-[auto_1fr] items-center gap-8 sm:gap-12">
+          <div className="hero-id mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-[auto_1fr] items-center gap-5 sm:gap-12">
             <div
-              className="overflow-hidden bg-[color:var(--stage-2)] hud-frame"
+              className="hero-portrait overflow-hidden bg-[color:var(--stage-2)] hud-frame mx-auto sm:mx-0"
               style={{
-                width: 132,
-                height: 132,
                 borderRadius: 4,
                 border: "1px solid var(--hair)",
                 boxShadow:
@@ -45,13 +43,13 @@ export default function Hero() {
               <Image
                 src={withBasePath("/images/portrait/main.jpg")}
                 alt={`${PROFILE.name} 人像`}
-                width={128}
-                height={128}
+                width={200}
+                height={200}
                 className="h-full w-full object-cover"
                 priority
               />
             </div>
-            <div>
+            <div className="text-center sm:text-left">
               <p
                 className="font-mono"
                 style={{
@@ -63,7 +61,7 @@ export default function Hero() {
               >
                 {PROFILE.name}
               </p>
-              <p className="lede mt-3">独立开发者 · 在做能用的产品。</p>
+              <p className="lede mt-3 mx-auto sm:mx-0">独立开发者 · 在做能用的产品。</p>
             </div>
           </div>
         </Reveal>

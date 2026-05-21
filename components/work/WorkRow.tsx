@@ -119,7 +119,7 @@ export default function WorkRow({ work, reverse = false }: Props) {
 
   return (
     <article
-      className="grid grid-cols-1 lg:grid-cols-2 items-center gap-x-16 gap-y-10"
+      className="grid grid-cols-1 lg:grid-cols-2 items-center gap-x-16 gap-y-6 sm:gap-y-10"
       aria-labelledby={`work-${work.id}`}
     >
       <div className={reverse ? "lg:order-2" : "lg:order-1"}>{mediaCol}</div>
