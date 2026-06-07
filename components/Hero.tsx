@@ -15,7 +15,7 @@ export default function Hero() {
         <Reveal delayMs={120}>
           <h1 id="hero-claim" className="display mt-6 sm:mt-8">
             <Typewriter
-              lines={["在 AI 时代，", "想象，是最重要的事情。"]}
+              lines={["19 岁，", "把 AI 做成真实产品。"]}
               speedMs={58}
               startDelayMs={500}
               caret
@@ -61,7 +61,9 @@ export default function Hero() {
               >
                 {PROFILE.name}
               </p>
-              <p className="lede mt-3 mx-auto sm:mx-0">独立开发者 · 在做能用的产品。</p>
+              <p className="lede mt-3 mx-auto sm:mx-0">
+                独立开发者 · AI 桌面自动化 · 内容系统 · 本地工具基础设施。
+              </p>
             </div>
           </div>
         </Reveal>

@@ -22,6 +22,11 @@ export default function GenesisIntro({ durationMs = 8400, onComplete }: Props) {
   };
 
   useEffect(() => {
+    if (window.location.hash.length > 1) {
+      const t = window.setTimeout(finish, 0);
+      return () => window.clearTimeout(t);
+    }
+
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
       const t = window.setTimeout(finish, 1600);

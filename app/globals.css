@@ -1,1000 +1,1608 @@
 @import "tailwindcss";
 
-/* ===========================================================
- *  颜色系统：AI 时代终端 · 深空贯穿 · 暖金 + 电青双强调
- * =========================================================== */
 :root {
-  /* stage / ink —— 正文深空 */
-  --stage:        #02040b;   /* 深空底（与 cosmos-deep 同色，贯穿全站） */
-  --stage-2:      #070b1a;   /* 次级面板（卡片背景） */
-  --ink:          #F6F2E8;   /* 主字色：近白略暖 */
-  --ink-soft:     rgba(246, 242, 232, 0.78);
-  --ink-faint:    rgba(246, 242, 232, 0.46);
-  --hair:         rgba(214, 169, 87, 0.18);   /* 暗金细线 */
-  --hair-cyan:    rgba(127, 230, 255, 0.16);  /* 电青细线 / HUD 角标 */
-
-  /* 双强调 */
-  --accent:       #D6A957;   /* 主：暖金（与开场恒星呼应） */
-  --accent-soft:  #E8C885;
-  --accent-cyan:  #7FE6FF;   /* 副：电青（HUD / hover / 扫描线） */
-  --accent-glow:  rgba(214, 169, 87, 0.16);
-
-  /* cosmos（开场 / 收尾，勿改数值） */
-  --cosmos-void:  #05070d;
-  --cosmos-warm:  #ffefc0;
-  --cosmos-amber: #ff7b39;
-  --cosmos-moon:  #fffdf1;
-  --cosmos-deep:  #02040b;
+  --ink: #f5f5f7;
+  --ink-strong: #ffffff;
+  --ink-dark: #0b0d10;
+  --muted: rgba(245, 245, 247, 0.66);
+  --muted-dark: #6e737a;
+  --line: rgba(255, 255, 255, 0.14);
+  --line-dark: rgba(10, 14, 20, 0.12);
+  --panel: rgba(255, 255, 255, 0.08);
+  --panel-strong: rgba(255, 255, 255, 0.14);
+  --glass: rgba(255, 255, 255, 0.7);
+  --blue: #2997ff;
+  --green: #30d158;
+  --amber: #ff9f0a;
+  --rose: #ff375f;
+  --radius: 8px;
+  --shadow: 0 36px 120px rgba(0, 0, 0, 0.34);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), "SFMono-Regular", Consolas, monospace;
 }
 
-@theme inline {
-  --color-stage:        var(--stage);
-  --color-stage-2:      var(--stage-2);
-  --color-paper:        var(--stage);
-  --color-ink:          var(--ink);
-  --color-ink-soft:     var(--ink-soft);
-  --color-ink-faint:    var(--ink-faint);
-  --color-hair:         var(--hair);
-  --color-accent:       var(--accent);
-  --color-accent-soft:  var(--accent-soft);
-  --color-accent-cyan:  var(--accent-cyan);
-  --color-cosmos-void:  var(--cosmos-void);
-  --color-cosmos-warm:  var(--cosmos-warm);
-  --color-cosmos-amber: var(--cosmos-amber);
-  --color-cosmos-moon:  var(--cosmos-moon);
-  --color-cosmos-deep:  var(--cosmos-deep);
-  --font-sans:    var(--font-inter), system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-  --font-serif:   var(--font-newsreader), "Source Han Serif SC", "Songti SC", serif;
-  --font-mono:    var(--font-jetbrains-mono), ui-monospace, Consolas, monospace;
+* {
+  box-sizing: border-box;
 }
 
-html, body {
-  background: var(--stage);
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  background: #050607;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
   color: var(--ink);
+  background: #050607;
   font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  letter-spacing: 0;
+  overflow-x: hidden;
   text-rendering: optimizeLegibility;
-}
-html { scroll-behavior: smooth; }
-
-::selection { background: var(--accent); color: var(--stage); }
-
-/* ===========================================================
- *  Sci-fi 背景层（全局 fixed，z-index < 0）
- * =========================================================== */
-.aurora {
-  position: fixed; inset: 0; z-index: -2;
-  pointer-events: none; overflow: hidden;
-}
-.aurora::before, .aurora::after {
-  content: ""; position: absolute; inset: -20%;
-  background:
-    radial-gradient(40% 60% at 18% 28%, rgba(214,169,87,0.12), transparent 60%),
-    radial-gradient(50% 40% at 78% 70%, rgba(127,230,255,0.10), transparent 60%),
-    radial-gradient(30% 30% at 52% 50%, rgba(214,169,87,0.05), transparent 70%);
-  animation: aurora-drift 26s ease-in-out infinite alternate;
-  filter: blur(40px);
-  will-change: transform;
-}
-.aurora::after {
-  animation-duration: 38s;
-  animation-direction: alternate-reverse;
-  opacity: 0.6;
-  background:
-    radial-gradient(35% 50% at 70% 35%, rgba(127,230,255,0.07), transparent 60%),
-    radial-gradient(45% 35% at 22% 78%, rgba(214,169,87,0.08), transparent 60%);
-}
-@keyframes aurora-drift {
-  0%   { transform: translate3d(-2%, -3%, 0) scale(1.05); }
-  100% { transform: translate3d(3%, 4%, 0) scale(1.12); }
+  -webkit-font-smoothing: antialiased;
 }
 
-.starfield {
-  position: fixed; inset: 0; z-index: -1;
-  pointer-events: none;
-  background-image:
-    radial-gradient(1px 1px at 16% 22%, rgba(255,255,255,0.5), transparent),
-    radial-gradient(1px 1px at 72% 18%, rgba(255,255,255,0.36), transparent),
-    radial-gradient(1px 1px at 44% 64%, rgba(255,255,255,0.28), transparent),
-    radial-gradient(1.5px 1.5px at 88% 84%, rgba(255,255,255,0.42), transparent),
-    radial-gradient(1px 1px at 32% 88%, rgba(255,255,255,0.3), transparent),
-    radial-gradient(1px 1px at 60% 42%, rgba(255,255,255,0.22), transparent),
-    radial-gradient(1px 1px at 8% 70%, rgba(255,255,255,0.34), transparent);
-  background-size: 100% 100%;
-  opacity: 0.85;
+body::selection {
+  color: #050607;
+  background: var(--ink-strong);
 }
 
-.scanline-sweep {
-  position: fixed; left: 0; right: 0; top: -2px; height: 2px; z-index: 1;
-  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-  filter: blur(1.2px);
-  opacity: 0;
-  animation: scan-line 22s linear infinite;
-  pointer-events: none;
-}
-@keyframes scan-line {
-  0%   { transform: translateY(0);     opacity: 0; }
-  3%   { opacity: 0.55; }
-  9%   { transform: translateY(100vh); opacity: 0; }
-  100% { transform: translateY(100vh); opacity: 0; }
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-.cursor-glow {
-  position: fixed; top: 0; left: 0; z-index: 0;
-  width: 480px; height: 480px; border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-glow), transparent 65%);
-  pointer-events: none;
-  mix-blend-mode: screen;
-  will-change: transform;
-  opacity: 0;
-  transition: opacity 320ms ease;
-}
-.cursor-glow.is-on { opacity: 1; }
-@media (hover: none) { .cursor-glow { display: none; } }
-
-/* ===========================================================
- *  正文体系（深空贯穿）
- * =========================================================== */
-.stage {
-  position: relative;
-  padding: clamp(5rem, 13vh, 9.5rem) clamp(1.5rem, 6vw, 4rem);
-  background: transparent;
-}
-.stage-tight {
-  padding: clamp(3.5rem, 8vh, 6rem) clamp(1.5rem, 6vw, 4rem);
-}
-/* 手机端 stage padding 收紧：上下太空白 */
-@media (max-width: 640px) {
-  .stage {
-    padding: 3rem 1.25rem;
-  }
-  .stage-tight {
-    padding: 2.25rem 1.25rem;
-  }
+button,
+input {
+  font: inherit;
+  letter-spacing: 0;
 }
 
-/* Hero 头像在手机端放大 + 居中 */
-.hero-portrait {
-  width: 132px;
-  height: 132px;
-}
-@media (max-width: 640px) {
-  .hero-portrait {
-    width: 188px;
-    height: 188px;
-  }
-}
-.wrap {
-  width: 100%;
-  max-width: 1080px;
-  margin-inline: auto;
-}
-.wrap-wide { max-width: 1200px; }
-
-/* HUD-style kicker：[ TEXT ] 方括号 + 电青 */
-.kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: clamp(11px, 1vw, 12.5px);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.kicker::before { content: "["; color: var(--accent-cyan); }
-.kicker::after  { content: "]"; color: var(--accent-cyan); }
-
-.accent-rule {
-  width: 64px;
-  height: 1.5px;
-  background: linear-gradient(90deg, var(--accent), transparent);
-  border: 0;
-  margin: 0;
-  position: relative;
-}
-.accent-rule::after {
-  content: "";
-  position: absolute;
-  right: -10px; top: -3.5px;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 14px var(--accent);
-}
-
-/* 超大展示字 —— 终端 mono */
-.display {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: clamp(2.4rem, 7.2vw, 5.4rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  text-shadow: 0 0 28px rgba(214, 169, 87, 0.18);
-}
-@media (max-width: 640px) {
-  .display {
-    font-size: 1.85rem;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-  }
-}
-.display-serif {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-}
-.headline {
-  font-family: var(--font-sans);
-  font-weight: 640;
-  font-size: clamp(2rem, 5vw, 3.6rem);
-  line-height: 1.06;
-  letter-spacing: -0.03em;
-  color: var(--ink);
-}
-.lede {
-  font-size: clamp(1.08rem, 1.6vw, 1.5rem);
-  line-height: 1.62;
-  color: var(--ink-soft);
-  max-width: 44ch;
-}
-.body-lg {
-  font-size: clamp(1rem, 1.25vw, 1.18rem);
-  line-height: 1.7;
-  color: var(--ink-soft);
-}
-
-/* 文字链接 / CTA */
-.link-gold {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-size: 0.95em;
-  letter-spacing: 0.02em;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 1px;
-  transition: gap 200ms ease, color 200ms ease, border-color 200ms ease;
-}
-.link-gold:hover {
-  gap: 0.7rem;
-  color: var(--accent-soft);
-  border-bottom-color: var(--accent-soft);
-}
-/* 手机端文字链补内边距，确保 44pt 触摸目标 */
-@media (max-width: 640px) {
-  .link-gold {
-    padding: 0.55rem 0;
-    font-size: 1rem;
-    min-height: 44px;
-  }
-}
-
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--accent);
-  color: #0a0a0a;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  padding: 0.9rem 1.6rem;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
-  box-shadow: 0 0 0 1px var(--accent), 0 8px 32px -8px rgba(214,169,87,0.5);
-  transition: transform 200ms ease, box-shadow 200ms ease;
-}
-.cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 0 1px var(--accent-soft), 0 12px 40px -6px rgba(214,169,87,0.65);
-}
-.cta:active { transform: translateY(0); }
-
-.cta-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-weight: 500;
-  padding: 0.85rem 1.55rem;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
-  background: transparent;
-  transition: background 200ms ease, color 200ms ease, box-shadow 200ms ease;
-}
-.cta-ghost:hover {
-  background: rgba(214, 169, 87, 0.1);
-  color: var(--accent-soft);
-  box-shadow: 0 0 18px rgba(214,169,87,0.25);
-}
-
-.hair-line {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--hair), transparent);
+button {
   border: 0;
 }
 
-/* Typewriter caret 光标 */
-.tw-caret {
-  display: inline-block;
-  margin-left: 0.08em;
-  color: var(--accent);
-  animation: caret-blink 0.9s steps(2) infinite;
-  font-family: var(--font-mono);
-  font-weight: 400;
-  text-shadow: 0 0 12px var(--accent);
-}
-@keyframes caret-blink {
-  0%, 49%   { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
-/* HUD 四角框（包裹 media-frame 用） */
-.hud-frame {
-  position: relative;
-  padding: 6px;
-}
-.hud-frame::before,
-.hud-frame::after,
-.hud-frame > .hud-corner-tr,
-.hud-frame > .hud-corner-bl {
-  content: "";
-  position: absolute;
-  width: 14px; height: 14px;
-  border: 1px solid var(--accent-cyan);
-  opacity: 0.7;
-}
-.hud-frame::before { top: 0; left: 0;  border-right: 0; border-bottom: 0; }
-.hud-frame::after  { bottom: 0; right: 0; border-left: 0; border-top: 0; }
-.hud-frame > .hud-corner-tr { top: 0; right: 0;  border-left: 0; border-bottom: 0; }
-.hud-frame > .hud-corner-bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
-
-/* 3D tilt 容器（rotateX/Y 由 JS 设置） */
-.tilt {
-  transform-style: preserve-3d;
-  transition: transform 220ms cubic-bezier(.18,.82,.18,1);
-  will-change: transform;
-}
-
-/* 终端风文字（bio 段落用） */
-.terminal-line {
-  font-family: var(--font-mono);
-  color: var(--ink-soft);
-}
-.terminal-line::before {
-  content: "> ";
-  color: var(--accent-cyan);
-}
-
-/* ===========================================================
- *  Ambient BGM toggle（与 cosmos-skip 视觉对称，固定 bottom-left）
- * =========================================================== */
-.ambient-toggle {
-  position: fixed;
-  bottom: 2.2rem;
-  left: 2.2rem;
-  z-index: 30;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(255,250,230,0.7);
-  border: 1px solid rgba(255,250,230,0.3);
-  padding: 0.5rem 0.9rem;
-  background: rgba(0,0,0,0.4);
-  cursor: pointer;
-  transition: color 200ms, border-color 200ms, background 200ms;
-}
-.ambient-toggle:hover {
-  color: #fff;
-  border-color: rgba(255,250,230,0.6);
-  background: rgba(0,0,0,0.6);
-}
-.ambient-toggle[data-on="true"] {
-  color: #D6A957 !important;
-  border-color: #D6A957 !important;
-  background: rgba(0,0,0,0.5);
-}
-.ambient-toggle .pulse {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255,250,230,0.35);
-  flex: 0 0 auto;
-}
-.ambient-toggle-icon { display: none; }
-.ambient-toggle[data-on="true"] .pulse {
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent);
-  animation: ambient-pulse 1.6s ease-in-out infinite;
-}
-@keyframes ambient-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.55; transform: scale(1.35); }
-}
-@media (max-width: 640px) {
-  .ambient-toggle {
-    /* 手机端：仅图标，移到右下安全区，避免遮挡正文 */
-    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-    right: calc(1rem + env(safe-area-inset-right, 0px));
-    left: auto;
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    gap: 0;
-    justify-content: center;
-    background: rgba(2,4,11,0.75);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
-  .ambient-toggle-text { display: none; }
-  .ambient-toggle-icon {
-    display: block;
-    font-size: 16px;
-    line-height: 1;
-    letter-spacing: 0;
-  }
-  .ambient-toggle .pulse {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 5px;
-    height: 5px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ambient-toggle[data-on="true"] .pulse { animation: none; }
-}
-
-/* ===========================================================
- *  代码块 CodeSnippet
- * =========================================================== */
-.code-block {
-  position: relative;
-  background:
-    linear-gradient(135deg, #0a0e1b 0%, #050714 100%),
-    var(--stage-2);
-  border: 1px solid var(--hair);
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow:
-    0 0 0 1px rgba(127,230,255,0.08) inset,
-    0 30px 60px -30px rgba(0,0,0,0.85),
-    0 0 28px rgba(214,169,87,0.05);
-}
-.code-block::before {
-  /* 扫描线背景 */
-  content: "";
-  position: absolute; inset: 0;
-  background-image: linear-gradient(
-    rgba(127, 230, 255, 0.045) 1px, transparent 1px
-  );
-  background-size: 100% 24px;
-  pointer-events: none;
-  opacity: 0.6;
-}
-.code-block--media {
-  /* 占满 media-frame 容器：16:10 比例 */
-  aspect-ratio: 16 / 10;
-  display: flex;
-  flex-direction: column;
-}
-
-.code-caption {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.7rem 1rem;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  border-bottom: 1px solid var(--hair);
-  background: rgba(127, 230, 255, 0.025);
-  z-index: 1;
-}
-.code-caption-bracket { color: var(--accent-cyan); }
-.code-caption-tag {
-  color: var(--accent);
-  font-weight: 600;
-}
-.code-caption-text { letter-spacing: 0.06em; }
-
-.code-pre {
-  position: relative;
-  margin: 0;
-  padding: 0.9rem 1rem 1rem;
-  flex: 1 1 auto;
-  overflow: auto;
-  background: transparent;
-  z-index: 1;
-}
-.code-block--media .code-pre {
-  padding: 1.2rem 1.4rem 1.4rem;
-}
-.code-content {
+img {
   display: block;
-  font-family: var(--font-mono);
-  font-size: clamp(11px, 0.92vw, 13.5px);
-  line-height: 1.65;
-  color: var(--ink);
-  white-space: pre;
-  letter-spacing: 0.005em;
-  text-shadow: 0 0 14px rgba(214, 169, 87, 0.18);
-}
-.code-block--media .code-content {
-  font-size: clamp(12px, 1.05vw, 14.5px);
-}
-.code-line { display: flex; }
-.code-ln {
-  flex: 0 0 auto;
-  margin-right: 1.1rem;
-  color: var(--accent-cyan);
-  opacity: 0.42;
-  user-select: none;
-  font-variant-numeric: tabular-nums;
-}
-.code-src { flex: 1 1 auto; }
-
-@media (max-width: 640px) {
-  .code-block--media .code-content { font-size: 11.5px; }
-  .code-ln { margin-right: 0.7rem; }
+  max-width: 100%;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .code-block::before { opacity: 0.3; }
-}
-
-/* ===========================================================
- *  作品展示（数据驱动，keynote 大卡）
- * =========================================================== */
-.media-frame {
+.apple-studio {
   position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  border-radius: 4px;
-  overflow: hidden;
-  background: var(--stage-2);
-  border: 1px solid var(--hair);
-  box-shadow:
-    0 0 0 1px rgba(127,230,255,0.08) inset,
-    0 50px 80px -40px rgba(0,0,0,0.85),
-    0 0 32px rgba(214,169,87,0.06);
+  min-height: 100svh;
+  isolation: isolate;
+  background: #050607;
 }
-.media-frame img {
-  position: absolute;
+
+.apple-studio::before,
+.apple-studio::after {
+  position: fixed;
   inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  content: "";
+  transition: opacity 900ms ease, background 900ms ease;
+}
+
+.apple-studio::before {
+  background:
+    linear-gradient(110deg, rgba(41, 151, 255, 0.18), transparent 38%),
+    linear-gradient(250deg, rgba(48, 209, 88, 0.14), transparent 44%),
+    #050607;
+}
+
+.apple-studio::after {
+  z-index: -1;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent 82%);
+  opacity: 0.62;
+}
+
+.apple-studio[data-active-scene="systems"]::before,
+.apple-studio[data-active-scene="archive"]::before {
+  background:
+    linear-gradient(120deg, rgba(245, 245, 247, 0.96), rgba(231, 235, 238, 0.92) 52%, rgba(255, 255, 255, 0.96)),
+    #f5f5f7;
+}
+
+.apple-studio[data-active-scene="systems"],
+.apple-studio[data-active-scene="archive"] {
+  color: var(--ink-dark);
+}
+
+.apple-studio[data-active-scene="craft"]::before {
+  background:
+    linear-gradient(180deg, #050607 0%, #15100a 54%, #050607 100%),
+    #050607;
+}
+
+.apple-studio[data-active-scene="contact"]::before {
+  background:
+    linear-gradient(120deg, #f5f5f7, #ffffff 48%, #eceff3),
+    #f5f5f7;
+}
+
+.apple-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 66px;
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+  background: rgba(5, 6, 7, 0.58);
+  backdrop-filter: blur(24px) saturate(140%);
+  transition: color 500ms ease, background 500ms ease, border-color 500ms ease;
+}
+
+.apple-studio[data-active-scene="systems"] .apple-nav,
+.apple-studio[data-active-scene="archive"] .apple-nav,
+.apple-studio[data-active-scene="contact"] .apple-nav {
+  color: var(--ink-dark);
+  border-bottom-color: rgba(10, 14, 20, 0.08);
+  background: rgba(245, 245, 247, 0.72);
+}
+
+.nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.nav-brand span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: var(--radius);
+  color: #050607;
+  background: #ffffff;
+  transition: color 500ms ease, background 500ms ease;
+}
+
+.apple-studio[data-active-scene="systems"] .nav-brand span,
+.apple-studio[data-active-scene="archive"] .nav-brand span,
+.apple-studio[data-active-scene="contact"] .nav-brand span {
+  color: #ffffff;
+  background: #050607;
+}
+
+.nav-brand strong {
+  overflow: hidden;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.3rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-links a {
+  min-height: 36px;
+  padding: 0.5rem 0.74rem;
+  border-radius: var(--radius);
+  color: currentColor;
+  font-size: 0.86rem;
+  opacity: 0.62;
+  white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible,
+.nav-links a[data-active="true"] {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+}
+
+.apple-studio[data-active-scene="systems"] .nav-links a:hover,
+.apple-studio[data-active-scene="systems"] .nav-links a:focus-visible,
+.apple-studio[data-active-scene="systems"] .nav-links a[data-active="true"],
+.apple-studio[data-active-scene="archive"] .nav-links a:hover,
+.apple-studio[data-active-scene="archive"] .nav-links a:focus-visible,
+.apple-studio[data-active-scene="archive"] .nav-links a[data-active="true"],
+.apple-studio[data-active-scene="contact"] .nav-links a:hover,
+.apple-studio[data-active-scene="contact"] .nav-links a:focus-visible,
+.apple-studio[data-active-scene="contact"] .nav-links a[data-active="true"] {
+  background: rgba(5, 6, 7, 0.08);
+}
+
+.scene-rail {
+  position: fixed;
+  top: 50%;
+  right: 1.3rem;
+  z-index: 45;
+  display: grid;
+  gap: 0.45rem;
+  transform: translateY(-50%);
+}
+
+.scene-rail a {
+  display: grid;
+  width: 34px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  color: currentColor;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  opacity: 0.36;
+}
+
+.scene-rail a[data-active="true"],
+.scene-rail a:hover,
+.scene-rail a:focus-visible {
+  border-color: currentColor;
+  opacity: 1;
+  outline: none;
+}
+
+.story-scene {
+  position: relative;
+  display: grid;
+  align-items: center;
+  width: calc(100% - 2rem);
+  max-width: 1180px;
+  min-height: calc(100svh - 66px);
+  margin: 0 auto;
+  padding: 6rem 0;
+  opacity: 0.3;
+  filter: blur(12px);
+  transform: translateY(42px) scale(0.982);
+  transition: opacity 900ms ease, filter 900ms ease, transform 900ms ease;
+  scroll-margin-top: 66px;
+  scroll-snap-align: start;
+  isolation: isolate;
+}
+
+.story-scene::before {
+  position: absolute;
+  inset: 1.5rem -1.5rem;
+  z-index: 0;
+  content: "";
+  border-radius: var(--radius);
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.story-scene > * {
+  position: relative;
+  z-index: 1;
+}
+
+#systems,
+#archive,
+#contact {
+  color: var(--ink-dark);
+}
+
+#systems::before,
+#archive::before,
+#contact::before {
+  background:
+    linear-gradient(120deg, rgba(245, 245, 247, 0.98), rgba(232, 236, 240, 0.96) 52%, rgba(255, 255, 255, 0.98)),
+    #f5f5f7;
+  box-shadow: 0 40px 140px rgba(10, 14, 20, 0.1);
+}
+
+.apple-studio[data-active-scene="systems"] #systems::before,
+.apple-studio[data-active-scene="archive"] #archive::before,
+.apple-studio[data-active-scene="contact"] #contact::before {
+  opacity: 1;
+}
+
+.apple-studio[data-active-scene="hero"] #hero,
+.apple-studio[data-active-scene="systems"] #systems,
+.apple-studio[data-active-scene="featured"] #featured,
+.apple-studio[data-active-scene="craft"] #craft,
+.apple-studio[data-active-scene="archive"] #archive,
+.apple-studio[data-active-scene="contact"] #contact {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+.hero-cinema {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.72fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-copy {
+  min-width: 0;
+  max-width: 780px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+.apple-studio[data-active-scene="systems"] .eyebrow,
+.apple-studio[data-active-scene="archive"] .eyebrow,
+.apple-studio[data-active-scene="contact"] .eyebrow {
+  color: #0066cc;
+}
+
+.hero-copy h1,
+.scene-heading h2,
+.contact-card h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 620;
+  line-height: 1.02;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.hero-copy h1 {
+  margin-top: 1.1rem;
+  font-size: 6.2rem;
+  color: var(--ink-strong);
+}
+
+.type-reveal {
+  display: inline;
+}
+
+.type-reveal span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(22px);
+  filter: blur(12px);
+}
+
+.apple-studio[data-active-scene="hero"] #hero .type-reveal span,
+.apple-studio[data-active-scene="featured"] #featured .type-reveal span {
+  animation: typeIn 780ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(130ms + var(--delay));
+}
+
+.hero-lede {
+  max-width: 660px;
+  margin: 1.4rem 0 0;
+  color: var(--muted);
+  font-size: 1.18rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.78rem;
+  margin-top: 2.1rem;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.apple-studio[data-active-scene="hero"] #hero .hero-actions {
+  animation: fadeLift 760ms cubic-bezier(0.16, 1, 0.3, 1) 820ms forwards;
+}
+
+.button-dark,
+.button-light {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.74rem 1.05rem;
+  border-radius: var(--radius);
+  font-weight: 720;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.button-dark {
+  color: #050607;
+  background: var(--ink-strong);
+}
+
+.button-light {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.button-dark:hover,
+.button-light:hover,
+.button-dark:focus-visible,
+.button-light:focus-visible {
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.hero-device {
+  position: relative;
+  display: grid;
+  gap: 0.8rem;
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(36px) scale(0.96);
+}
+
+.apple-studio[data-active-scene="hero"] #hero .hero-device {
+  animation: deviceRise 980ms cubic-bezier(0.16, 1, 0.3, 1) 420ms forwards;
+}
+
+.portrait-stage {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.08);
+  aspect-ratio: 4 / 5;
+}
+
+.portrait-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* 无配图时的代码 motif 占位 —— 暗金发光终端感 */
-.work-motif {
-  position: absolute;
-  inset: 0;
+.identity-strip {
   display: grid;
-  place-items: center;
-  text-align: center;
-  background:
-    radial-gradient(140% 120% at 28% 18%, #181c2c 0%, #050714 64%),
-    var(--cosmos-deep);
-  color: var(--accent-soft);
-  font-feature-settings: "calt" 0;
-}
-.work-motif::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: linear-gradient(
-    rgba(127, 230, 255, 0.04) 1px, transparent 1px
-  );
-  background-size: 100% 28px;
-  pointer-events: none;
-}
-.work-motif .motif-big {
-  font-family: var(--font-mono);
-  font-size: clamp(2.6rem, 7vw, 4.6rem);
-  letter-spacing: 0.04em;
-  text-shadow:
-    0 0 24px rgba(214,169,87,0.55),
-    0 0 48px rgba(214,169,87,0.25);
-  position: relative; z-index: 1;
-}
-.work-motif .motif-sub {
-  margin-top: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--accent-cyan);
-  opacity: 0.75;
-  position: relative; z-index: 1;
+  grid-template-columns: minmax(0, 0.45fr) minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: end;
+  padding: 0.2rem 0.2rem 0.45rem;
 }
 
-.tech-tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--ink-soft);
-  border: 1px solid var(--hair);
-  border-radius: 4px;
-  padding: 0.28rem 0.72rem;
-  background: rgba(127, 230, 255, 0.025);
-  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
-}
-.tech-tag:hover {
-  border-color: var(--accent-cyan);
-  color: var(--ink);
-  background: rgba(127, 230, 255, 0.08);
+.identity-strip p {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 760;
 }
 
-/* 功能模块行：·分隔，淡青色点 */
-.feature-line {
-  margin-top: 0.9rem;
-  color: var(--ink-soft);
-  font-family: var(--font-mono);
-  font-size: clamp(.92rem, 1.05vw, 1rem);
-  line-height: 1.85;
-  letter-spacing: 0.02em;
+.identity-strip span {
+  color: var(--muted);
 }
 
-/* 轮播：图片淡入淡出 + 圆点导航 */
-.gallery-img {
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.hero-metrics div {
+  min-height: 86px;
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.hero-metrics dt {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 760;
+  color: var(--green);
+}
+
+.hero-metrics dd {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.scene-heading {
+  max-width: 820px;
+}
+
+.scene-heading.narrow {
+  max-width: 760px;
+}
+
+.scene-heading h2 {
+  margin-top: 0.85rem;
+  font-size: 4.4rem;
+}
+
+.scene-heading p:not(.eyebrow) {
+  max-width: 680px;
+  margin: 1.1rem 0 0;
+  color: currentColor;
+  opacity: 0.68;
+  font-size: 1.08rem;
+}
+
+.capability-stack {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.capability-card,
+.craft-card,
+.archive-card {
+  border-radius: var(--radius);
+}
+
+.capability-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+  padding: 1.25rem;
+  border: 1px solid var(--line-dark);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 30px 80px rgba(10, 14, 20, 0.08);
   opacity: 0;
-  transition: opacity 500ms cubic-bezier(.4, 0, .2, 1);
+  transform: translateY(52px);
+}
+
+.apple-studio[data-active-scene="systems"] #systems .capability-card {
+  animation: floatIn 920ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(180ms + var(--delay));
+}
+
+.capability-card > div,
+.archive-card-top,
+.archive-card footer,
+.meta-pills,
+.proof-row,
+.tech-row,
+.archive-tech,
+.capability-card footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.48rem;
+}
+
+.capability-card > div {
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted-dark);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+}
+
+.capability-card > div strong {
+  color: #0a7f49;
+}
+
+.capability-card h3,
+.craft-card h3,
+.archive-card h3,
+.feature-text h3 {
+  margin: 1.1rem 0 0;
+  line-height: 1.08;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.capability-card h3 {
+  font-size: 2rem;
+}
+
+.capability-card p {
+  margin: 1rem 0 0;
+  color: var(--muted-dark);
+}
+
+.capability-card footer {
+  margin-top: auto;
+  padding-top: 1.4rem;
+}
+
+.capability-card footer em,
+.proof-row span,
+.tech-row span,
+.archive-tech em,
+.archive-card footer span,
+.meta-pills span,
+.evidence-preview em {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  padding: 0.35rem 0.56rem;
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  font-style: normal;
+}
+
+.capability-card footer em {
+  border: 1px solid var(--line-dark);
+  color: var(--muted-dark);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.feature-stage {
+  display: grid;
+  gap: 2.2rem;
+}
+
+.feature-composer {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.feature-tabs {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+}
+
+.feature-tabs button {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 0.18rem 0.7rem;
+  min-height: 82px;
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-align: left;
+  background: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateX(-34px);
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.apple-studio[data-active-scene="featured"] #featured .feature-tabs button {
+  animation: sideIn 720ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(120ms + var(--delay));
+}
+
+.feature-tabs button:hover,
+.feature-tabs button:focus-visible,
+.feature-tabs button[data-active="true"] {
+  border-color: rgba(41, 151, 255, 0.74);
+  background: rgba(255, 255, 255, 0.14);
+  outline: none;
+}
+
+.feature-tabs button[data-active="true"] {
+  transform: translateX(0);
+  box-shadow: inset 4px 0 0 var(--blue);
+}
+
+.feature-tabs span {
+  grid-row: span 2;
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.feature-tabs strong,
+.feature-tabs small {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.feature-tabs strong {
+  font-size: 1rem;
+}
+
+.feature-tabs small {
+  color: var(--muted);
+}
+
+.feature-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 0.72fr);
+  gap: 1rem;
+  min-height: 650px;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateX(44px);
+}
+
+.apple-studio[data-active-scene="featured"] #featured .feature-panel {
+  animation: writePanel 860ms cubic-bezier(0.16, 1, 0.3, 1) 180ms forwards;
+}
+
+.feature-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0.8rem;
+}
+
+.meta-pills span {
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.feature-text h3 {
+  font-family: var(--font-serif);
+  font-size: 3.35rem;
+  font-weight: 620;
+}
+
+.feature-tagline {
+  margin: 1.1rem 0 0;
+  color: var(--ink);
+  font-size: 1.25rem;
+}
+
+.feature-outcome {
+  margin: 1rem 0 0;
+  color: var(--muted);
+}
+
+.feature-points {
+  display: grid;
+  gap: 0.68rem;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-points li {
+  position: relative;
+  padding-left: 1.05rem;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateX(18px);
+}
+
+.apple-studio[data-active-scene="featured"] #featured .feature-points li {
+  animation: sideIn 620ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(660ms + var(--delay));
+}
+
+.feature-points li::before {
+  position: absolute;
+  top: 0.7rem;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  content: "";
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.proof-row {
+  margin-top: 1.15rem;
+}
+
+.proof-row span {
+  border: 1px solid rgba(48, 209, 88, 0.28);
+  color: var(--green);
+  background: rgba(48, 209, 88, 0.08);
+}
+
+.tech-row {
+  margin-top: auto;
+  padding-top: 1.2rem;
+}
+
+.tech-row span {
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cinema-visual,
+.evidence-preview {
+  min-width: 0;
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cinema-visual {
+  display: flex;
+}
+
+.cinema-visual-image {
+  width: 100%;
+  min-height: 560px;
+  height: 100%;
   object-fit: cover;
 }
-.gallery-img.is-active { opacity: 1; }
 
-.gallery-nav {
+.evidence-preview {
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.evidence-preview > span {
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 5.2rem;
+  font-weight: 860;
+  line-height: 1;
+}
+
+.evidence-preview p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.evidence-preview div {
   display: flex;
-  justify-content: center;
-  gap: 0.55rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.evidence-preview em {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.craft-layout {
+  display: grid;
+  gap: 2rem;
+}
+
+.craft-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.craft-card {
+  min-height: 330px;
+  padding: 1.3rem;
+  border: 1px solid rgba(255, 159, 10, 0.22);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
+  opacity: 0;
+  transform: translateY(-54px) rotateX(9deg);
+  transform-origin: top center;
+}
+
+.apple-studio[data-active-scene="craft"] #craft .craft-card {
+  animation: dropIn 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(140ms + var(--delay));
+}
+
+.craft-card span {
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.craft-card h3 {
+  color: var(--ink-strong);
+  font-size: 2.1rem;
+}
+
+.craft-card p {
+  margin: 1rem 0 0;
+  color: var(--muted);
+}
+
+.principle-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.principle-strip div {
+  display: grid;
+  gap: 0.45rem;
+  min-height: 150px;
+  padding: 1.1rem;
+  background: rgba(5, 6, 7, 0.78);
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.apple-studio[data-active-scene="craft"] #craft .principle-strip div {
+  animation: fadeLift 760ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(580ms + var(--delay));
+}
+
+.principle-strip strong {
+  font-size: 1.08rem;
+}
+
+.principle-strip span {
+  color: var(--muted);
+}
+
+#archive {
+  min-height: auto;
+  padding-top: 7rem;
+}
+
+.archive-head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.72fr);
+  gap: 2rem;
+  align-items: end;
+}
+
+.archive-controls {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 24px 80px rgba(10, 14, 20, 0.08);
+}
+
+.search-box {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.search-box span {
+  color: var(--muted-dark);
+  font-size: 0.88rem;
+}
+
+.search-box input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  color: var(--ink-dark);
+  background: rgba(255, 255, 255, 0.76);
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-row button {
+  min-height: 36px;
+  padding: 0.48rem 0.72rem;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  color: var(--muted-dark);
+  background: rgba(255, 255, 255, 0.68);
+  cursor: pointer;
+}
+
+.filter-row button:hover,
+.filter-row button:focus-visible,
+.filter-row button[data-active="true"] {
+  color: #050607;
+  border-color: #0066cc;
+  outline: none;
+}
+
+.filter-row button[data-active="true"] {
+  background: rgba(0, 102, 204, 0.1);
+}
+
+.archive-count {
+  margin-top: 1.3rem;
+  color: var(--muted-dark);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
   margin-top: 1rem;
 }
-.gallery-dot {
-  /* 视觉 8x8 + padding 8 撑出 24x24 触控区 */
-  width: 24px;
-  height: 24px;
-  padding: 8px;
-  border-radius: 999px;
-  background: rgba(127, 230, 255, 0.25);
-  background-clip: content-box;
-  border: 0;
-  cursor: pointer;
-  transition: background 200ms ease, transform 200ms ease;
-}
-.gallery-dot:hover { background: var(--accent-cyan); background-clip: content-box; }
-.gallery-dot[data-active="true"] {
-  background: var(--accent);
-  background-clip: content-box;
-  transform: scale(1.15);
-  box-shadow: 0 0 16px rgba(214,169,87,0.5);
-}
-.gallery-dot:focus-visible { outline: 1px solid var(--accent-cyan); outline-offset: 4px; }
 
-/* ===========================================================
- *  Reveal：扫描线扫过 + 内容淡入上移
- * =========================================================== */
-.reveal {
-  position: relative;
+.archive-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  padding: 1rem;
+  border: 1px solid var(--line-dark);
+  color: var(--ink-dark);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 55px rgba(10, 14, 20, 0.08);
   opacity: 0;
-  transform: translateY(26px);
-  transition: opacity 760ms cubic-bezier(.18,.82,.18,1), transform 760ms cubic-bezier(.18,.82,.18,1);
+  transform: translateY(58px) scale(0.96);
 }
-.reveal::before {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; top: -2px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-  transform: scaleX(0);
-  transform-origin: left;
+
+.apple-studio[data-active-scene="archive"] #archive .archive-card {
+  animation: galleryRise 820ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(80ms + var(--delay));
+}
+
+.archive-card-top,
+.archive-card footer {
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted-dark);
+  font-size: 0.78rem;
+}
+
+.archive-card-top strong {
+  color: #b85f00;
+  font-weight: 760;
+}
+
+.archive-card h3 {
+  font-size: 1.35rem;
+}
+
+.archive-card p {
+  margin: 0.8rem 0 0;
+  color: var(--muted-dark);
+}
+
+.archive-card footer {
+  margin-top: auto;
+  padding-top: 1.1rem;
+  justify-content: flex-start;
+}
+
+.archive-card footer span,
+.archive-tech em {
+  border: 1px solid var(--line-dark);
+  color: var(--muted-dark);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.archive-tech {
+  margin-top: 0.7rem;
+}
+
+.contact-card {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 4rem;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  color: var(--ink-dark);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 34px 120px rgba(10, 14, 20, 0.12);
+  clip-path: inset(0 50% 0 50%);
   opacity: 0;
-  pointer-events: none;
 }
-.reveal.is-visible {
+
+.apple-studio[data-active-scene="contact"] #contact .contact-card {
+  animation: curtainOpen 940ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.contact-card h2 {
+  margin-top: 0.8rem;
+  font-size: 4.1rem;
+}
+
+.contact-card p:not(.eyebrow) {
+  max-width: 620px;
+  margin: 1rem auto 0;
+  color: var(--muted-dark);
+}
+
+.contact-card .button-dark {
+  margin-top: 1.7rem;
+  color: #ffffff;
+  background: #050607;
+}
+
+@keyframes typeIn {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeLift {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes deviceRise {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floatIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes writePanel {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dropIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+@keyframes galleryRise {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes curtainOpen {
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+@media (max-width: 1060px) {
+  .hero-cinema,
+  .feature-composer,
+  .feature-panel,
+  .archive-head {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .capability-stack,
+  .craft-grid,
+  .principle-strip,
+  .archive-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-copy h1 {
+    font-size: 5rem;
+  }
+
+  .scene-heading h2,
+  .contact-card h2 {
+    font-size: 3.55rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .apple-nav {
+    flex-direction: row;
+    align-items: center;
+    min-height: 64px;
+    padding: 0.7rem 0.9rem;
+    overflow: hidden;
+  }
+
+  .nav-brand {
+    flex: 0 0 auto;
+  }
+
+  .nav-links {
+    flex: 1;
+    min-width: 0;
+    padding-left: 0.25rem;
+  }
+
+  .scene-rail {
+    display: none;
+  }
+
+  .story-scene {
+    width: calc(100% - 1rem);
+    min-height: auto;
+    padding: 4.2rem 0;
+    scroll-margin-top: 64px;
+  }
+
+  #hero {
+    min-height: calc(100svh - 64px);
+  }
+
+  .hero-cinema {
+    gap: 2.2rem;
+  }
+
+  .hero-copy h1 {
+    font-size: 3.35rem;
+  }
+
+  .hero-lede {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    display: grid;
+  }
+
+  .button-dark,
+  .button-light {
+    width: 100%;
+  }
+
+  .identity-strip,
+  .hero-metrics,
+  .capability-stack,
+  .craft-grid,
+  .principle-strip,
+  .archive-grid,
+  .feature-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .portrait-stage {
+    aspect-ratio: 4 / 4.6;
+  }
+
+  .hero-metrics div {
+    min-height: 78px;
+  }
+
+  .scene-heading h2,
+  .contact-card h2 {
+    font-size: 2.65rem;
+  }
+
+  .feature-panel {
+    min-height: auto;
+  }
+
+  .feature-text h3 {
+    font-size: 2.6rem;
+  }
+
+  .cinema-visual-image,
+  .evidence-preview {
+    min-height: 390px;
+  }
+
+  .archive-controls,
+  .contact-card {
+    padding: 1rem;
+  }
+
+  .contact-card {
+    text-align: left;
+  }
+}
+
+@media (max-width: 430px) {
+  .nav-brand strong {
+    display: none;
+  }
+
+  .hero-copy h1 {
+    font-size: 2.85rem;
+  }
+
+  .scene-heading h2,
+  .contact-card h2 {
+    font-size: 2.3rem;
+  }
+
+  .feature-text h3 {
+    font-size: 2.25rem;
+  }
+
+  .evidence-preview > span {
+    font-size: 3.8rem;
+  }
+}
+
+/* Unified ink-blue palette and stable scroll behavior. */
+:root {
+  --ink: #edf7ff;
+  --ink-strong: #ffffff;
+  --ink-dark: #edf7ff;
+  --muted: rgba(202, 222, 239, 0.72);
+  --muted-dark: rgba(202, 222, 239, 0.7);
+  --line: rgba(170, 213, 245, 0.18);
+  --line-dark: rgba(170, 213, 245, 0.2);
+  --panel: rgba(13, 35, 62, 0.72);
+  --panel-strong: rgba(21, 52, 86, 0.84);
+  --glass: rgba(188, 218, 242, 0.12);
+  --blue: #9bd8ff;
+  --green: #8ee6c8;
+  --amber: #f3c776;
+  --rose: #e99bb0;
+}
+
+html,
+body,
+.apple-studio {
+  color: var(--ink);
+  background: #061323;
+}
+
+.apple-studio::before,
+.apple-studio[data-active-scene="systems"]::before,
+.apple-studio[data-active-scene="archive"]::before,
+.apple-studio[data-active-scene="craft"]::before,
+.apple-studio[data-active-scene="contact"]::before {
+  background:
+    linear-gradient(130deg, rgba(14, 43, 78, 0.96), rgba(6, 19, 35, 0.94) 42%, rgba(8, 35, 50, 0.94)),
+    #061323;
+}
+
+.apple-studio::after {
+  background:
+    linear-gradient(rgba(178, 220, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(178, 220, 255, 0.035) 1px, transparent 1px);
+  opacity: 0.48;
+}
+
+.apple-studio[data-active-scene="systems"],
+.apple-studio[data-active-scene="archive"],
+.apple-studio[data-active-scene="contact"] {
+  color: var(--ink);
+}
+
+.apple-nav,
+.apple-studio[data-active-scene="systems"] .apple-nav,
+.apple-studio[data-active-scene="archive"] .apple-nav,
+.apple-studio[data-active-scene="contact"] .apple-nav {
+  color: var(--ink);
+  border-bottom-color: rgba(170, 213, 245, 0.12);
+  background: rgba(6, 19, 35, 0.72);
+}
+
+.nav-brand span,
+.apple-studio[data-active-scene="systems"] .nav-brand span,
+.apple-studio[data-active-scene="archive"] .nav-brand span,
+.apple-studio[data-active-scene="contact"] .nav-brand span {
+  color: #061323;
+  background: linear-gradient(180deg, #ffffff, #cbe8ff);
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible,
+.nav-links a[data-active="true"],
+.apple-studio[data-active-scene="systems"] .nav-links a:hover,
+.apple-studio[data-active-scene="systems"] .nav-links a:focus-visible,
+.apple-studio[data-active-scene="systems"] .nav-links a[data-active="true"],
+.apple-studio[data-active-scene="archive"] .nav-links a:hover,
+.apple-studio[data-active-scene="archive"] .nav-links a:focus-visible,
+.apple-studio[data-active-scene="archive"] .nav-links a[data-active="true"],
+.apple-studio[data-active-scene="contact"] .nav-links a:hover,
+.apple-studio[data-active-scene="contact"] .nav-links a:focus-visible,
+.apple-studio[data-active-scene="contact"] .nav-links a[data-active="true"] {
+  background: rgba(155, 216, 255, 0.13);
+}
+
+.story-scene,
+.apple-studio[data-active-scene="hero"] #hero,
+.apple-studio[data-active-scene="systems"] #systems,
+.apple-studio[data-active-scene="featured"] #featured,
+.apple-studio[data-active-scene="craft"] #craft,
+.apple-studio[data-active-scene="archive"] #archive,
+.apple-studio[data-active-scene="contact"] #contact {
   opacity: 1;
-  transform: translateY(0);
-}
-.reveal.is-visible::before {
-  animation: scan-reveal 720ms cubic-bezier(.18,.82,.18,1) forwards;
-}
-@keyframes scan-reveal {
-  0%   { transform: scaleX(0); opacity: 0; }
-  35%  { transform: scaleX(1); opacity: 0.9; }
-  100% { transform: scaleX(1); opacity: 0; }
+  filter: none;
+  transform: none;
 }
 
-/* 全局 reduced-motion 兜底（gallery / scan / aurora / caret / tilt） */
-@media (prefers-reduced-motion: reduce) {
-  .gallery-img { transition: none; }
-  .aurora::before, .aurora::after { animation: none; }
-  .scanline-sweep { animation: none; opacity: 0; }
-  .tw-caret { animation: none; }
-  .reveal::before { animation: none; }
-  .tilt { transition: none; transform: none !important; }
+#systems,
+#archive,
+#contact {
+  color: var(--ink);
 }
 
-/* ===========================================================
- *  §00 创世纪开场（Canvas + 几层装饰）—— 暗场，勿改数值
- * =========================================================== */
-.cosmos-stage {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 600px;
-  background: var(--cosmos-deep);
-  overflow: hidden;
-  color: #fff;
-}
-.genesis-stage .deep-space {
-  position: absolute; inset: 0; z-index: 1;
+#systems::before,
+#archive::before,
+#contact::before {
   background:
-    radial-gradient(ellipse at 30% 40%, rgba(20,30,55,0.6), transparent 50%),
-    radial-gradient(ellipse at 70% 60%, rgba(40,20,60,0.4), transparent 55%),
-    linear-gradient(180deg, #02040b 0%, #050912 60%, #02040b 100%);
-}
-.genesis-stage .nebula-glow {
-  position: absolute; inset: 0; z-index: 2;
-  background: radial-gradient(ellipse at 75% 25%, rgba(255,210,160,0.10), transparent 32%);
-  pointer-events: none;
-}
-.genesis-canvas {
-  position: absolute; inset: 0; z-index: 3;
-  width: 100%; height: 100%;
-}
-.atmos-veil {
-  position: absolute; inset: 0; z-index: 4;
-  background: radial-gradient(circle at 75% 25%, transparent 0%, rgba(255,180,90,0.04) 30%, transparent 70%);
-  pointer-events: none;
-}
-.vignette {
-  position: absolute; inset: 0; z-index: 8;
-  background: radial-gradient(ellipse 92% 75% at center, transparent 50%, rgba(0,0,0,0.35) 88%, rgba(0,0,0,0.55) 100%);
-  pointer-events: none;
-}
-.grain {
-  position: absolute; inset: 0; z-index: 9;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.85'/></svg>");
-  opacity: 0.06;
-  pointer-events: none;
+    linear-gradient(140deg, rgba(19, 48, 82, 0.86), rgba(13, 35, 62, 0.78) 52%, rgba(9, 45, 64, 0.78)),
+    rgba(13, 35, 62, 0.78);
+  box-shadow: 0 40px 140px rgba(0, 0, 0, 0.24);
 }
 
-/* 开场标题与副标的渐入渐出 */
-.cosmos-title {
-  position: absolute;
-  top: 38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  text-align: center;
-  width: min(1100px, 92vw);
-  color: #fff;
-  pointer-events: none;
-  animation: cosmosTitleIn 8.4s cubic-bezier(.18,.82,.18,1) forwards;
-}
-.cosmos-title h1 {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(4rem, 12vw, 9rem);
-  line-height: 0.95;
-  letter-spacing: -0.025em;
-  text-shadow: 0 0 60px rgba(255,247,215,0.35);
-}
-.cosmos-title .sub {
-  margin-top: 1.2rem;
-  font-family: var(--font-mono);
-  font-size: clamp(11px, 1.2vw, 13px);
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(255,245,220,0.78);
-}
-@keyframes cosmosTitleIn {
-  0%       { opacity: 0; transform: translate(-50%, -48%); filter: blur(6px); }
-  22%, 78% { opacity: 1; transform: translate(-50%, -50%); filter: blur(0); }
-  100%     { opacity: 0; transform: translate(-50%, -52%); filter: blur(4px); }
+#systems::before,
+#archive::before,
+#contact::before,
+.apple-studio[data-active-scene="systems"] #systems::before,
+.apple-studio[data-active-scene="archive"] #archive::before,
+.apple-studio[data-active-scene="contact"] #contact::before {
+  opacity: 1;
 }
 
-/* SKIP 按钮（兜底，移动端可跳过） */
-.cosmos-skip {
-  position: absolute;
-  bottom: 2.2rem;
-  right: 2.2rem;
-  z-index: 20;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(255,250,230,0.7);
-  border: 1px solid rgba(255,250,230,0.3);
-  padding: 0.5rem 0.9rem;
-  background: rgba(0,0,0,0.4);
-  cursor: pointer;
-  transition: color 200ms, border-color 200ms, background 200ms;
-}
-.cosmos-skip:hover { color: #fff; border-color: rgba(255,250,230,0.6); background: rgba(0,0,0,0.6); }
-@media (max-width: 640px) {
-  .cosmos-skip {
-    bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px));
-    right: calc(1.4rem + env(safe-area-inset-right, 0px));
-    padding: 0.55rem 0.95rem;
-    font-size: 10.5px;
-    letter-spacing: 0.22em;
-  }
+.type-reveal span,
+.hero-actions,
+.hero-device,
+.capability-card,
+.feature-tabs button,
+.feature-panel,
+.feature-points li,
+.craft-card,
+.principle-strip div,
+.archive-card,
+.contact-card {
+  opacity: 1;
+  filter: none;
+  transform: none;
 }
 
-.cosmos-hint {
-  position: absolute;
-  bottom: 2.4rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 12;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(255,250,230,0.55);
-  animation: hintBlink 2.4s ease-in-out infinite;
-  opacity: 0;
-  animation-delay: 4.6s;
-  animation-fill-mode: both;
-}
-@keyframes hintBlink {
-  0%, 100% { opacity: 0.25; }
-  50%      { opacity: 0.75; }
-}
-@media (max-width: 640px) {
-  /* 手机端 SKIP 已经足够明显，藏掉重复的 scroll hint，避免与 SKIP 重叠 */
-  .cosmos-hint { display: none; }
-  .cosmos-title h1 { font-size: clamp(3rem, 13vw, 5.5rem); }
-  .cosmos-title { top: 36%; }
+.button-dark {
+  color: #061323;
+  background: linear-gradient(180deg, #ffffff, #cbe8ff);
 }
 
-/* ===========================================================
- *  §收尾 月升归档（纯 CSS keyframes）—— 暗场，勿改数值
- *  默认 paused，data-active=true 时才 running
- * =========================================================== */
-.moon-stage {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 600px;
-  background: var(--cosmos-void);
-  overflow: hidden;
-  color: #fff;
+.button-light {
+  color: var(--ink);
+  border-color: rgba(170, 213, 245, 0.26);
+  background: rgba(155, 216, 255, 0.1);
 }
-.moon-stage .sky {
-  position: absolute; inset: 0; z-index: 1;
+
+.hero-device,
+.feature-panel,
+.capability-card,
+.craft-card,
+.archive-controls,
+.archive-card,
+.contact-card,
+.hero-metrics div,
+.feature-tabs button,
+.cinema-visual,
+.evidence-preview,
+.principle-strip div {
+  border-color: rgba(170, 213, 245, 0.18);
+  color: var(--ink);
   background:
-    radial-gradient(circle at 13% 18%, rgba(255,255,255,.32) 0 1px, transparent 1.6px),
-    radial-gradient(circle at 80% 24%, rgba(255,255,255,.22) 0 1px, transparent 1.5px),
-    linear-gradient(180deg, #f5e8cf 0%, #656c87 42%, #080b14 100%);
-  animation: night 10.2s ease forwards;
-  animation-play-state: paused;
+    linear-gradient(180deg, rgba(24, 55, 90, 0.78), rgba(13, 35, 62, 0.72)),
+    rgba(13, 35, 62, 0.72);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.22);
 }
-.moon-stage .night-overlay {
-  position: absolute; inset: 0; z-index: 2;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.38) 48%, rgba(0,0,0,.88) 100%);
-  opacity: 0;
-  animation: nightOverlay 10.2s ease forwards;
-  animation-play-state: paused;
+
+.capability-card,
+.archive-card,
+.archive-controls,
+.contact-card {
+  color: var(--ink);
 }
-.moon-stage .moon-stars {
-  position: absolute; inset: -10%; z-index: 3;
-  background-image:
-    radial-gradient(circle at 16% 20%, rgba(255,255,255,.6) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 70% 18%, rgba(255,255,255,.46) 0 1px, transparent 1.4px),
-    radial-gradient(circle at 42% 38%, rgba(255,255,255,.36) 0 1px, transparent 1.5px);
-  background-size: 330px 260px, 420px 320px, 520px 380px;
-  opacity: 0;
-  animation: starsIn 10.2s ease forwards;
-  animation-play-state: paused;
+
+.capability-card p,
+.archive-card p,
+.contact-card p:not(.eyebrow),
+.scene-heading p:not(.eyebrow),
+.feature-outcome,
+.feature-tabs small,
+.identity-strip span,
+.hero-lede,
+.craft-card p,
+.principle-strip span,
+.evidence-preview p {
+  color: var(--muted);
+  opacity: 1;
 }
-.moon-stage .moon {
-  position: absolute; z-index: 5;
-  left: 74%; bottom: -18vh;
-  width: clamp(96px, 10vw, 154px);
-  height: clamp(96px, 10vw, 154px);
-  border-radius: 50%;
-  background: radial-gradient(circle at 36% 28%, #fffdf1 0 24%, #fbf1d9 48%, #e7dcc1 76%, #c9c0ac 100%);
-  box-shadow: 0 0 30px rgba(255,250,226,.72), 0 0 120px rgba(255,250,226,.34), 0 0 250px rgba(156,186,255,.16);
-  transform: translateX(-50%);
-  animation: moonRise 10.2s cubic-bezier(.18,.74,.1,1) forwards;
-  animation-play-state: paused;
+
+.capability-card > div,
+.archive-card-top,
+.archive-card footer,
+.search-box span {
+  color: var(--muted);
 }
-.moon-stage .moon-glow {
-  position: absolute; z-index: 4;
-  left: 74%; bottom: -24vh;
-  width: clamp(230px, 26vw, 420px);
-  height: clamp(230px, 26vw, 420px);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,250,226,.22), rgba(156,186,255,.08) 42%, transparent 70%);
-  filter: blur(12px);
-  transform: translateX(-50%);
-  animation: moonGlowRise 10.2s cubic-bezier(.18,.74,.1,1) forwards;
-  animation-play-state: paused;
+
+.capability-card > div strong,
+.hero-metrics dt {
+  color: var(--green);
 }
-.moon-stage .horizon {
-  position: absolute;
-  left: -4%; right: -4%; bottom: 0;
-  z-index: 6; height: 30vh;
-  background: linear-gradient(180deg, rgba(0,0,0,0), #010101 66%);
-  clip-path: polygon(0 52%,12% 46%,25% 57%,38% 40%,51% 59%,64% 43%,78% 60%,91% 49%,100% 58%,100% 100%,0 100%);
+
+.archive-card-top strong,
+.feature-tabs span,
+.evidence-preview > span {
+  color: var(--amber);
 }
-.moon-stage .moon-copy {
-  position: absolute;
-  z-index: 8;
-  top: 36%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+.capability-card footer em,
+.archive-card footer span,
+.archive-tech em,
+.meta-pills span,
+.tech-row span,
+.proof-row span,
+.evidence-preview em {
+  border-color: rgba(170, 213, 245, 0.18);
+  color: var(--muted);
+  background: rgba(222, 240, 255, 0.08);
+}
+
+.proof-row span {
+  color: var(--green);
+  border-color: rgba(142, 230, 200, 0.28);
+  background: rgba(142, 230, 200, 0.08);
+}
+
+.search-box input,
+.filter-row button {
+  color: var(--ink);
+  border-color: rgba(170, 213, 245, 0.18);
+  background: rgba(222, 240, 255, 0.1);
+}
+
+.search-box input::placeholder {
+  color: rgba(202, 222, 239, 0.62);
+}
+
+.search-box input:focus,
+.filter-row button:hover,
+.filter-row button:focus-visible,
+.filter-row button[data-active="true"] {
+  color: var(--ink-strong);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(155, 216, 255, 0.12);
+}
+
+.filter-row button[data-active="true"] {
+  background: rgba(155, 216, 255, 0.16);
+}
+
+.contact-card {
+  clip-path: none;
   text-align: center;
-  width: min(1100px, 92vw);
-  opacity: 0;
-  animation: moonExitCopy 10.2s ease forwards;
-  animation-play-state: paused;
-}
-.moon-stage[data-active="true"] .sky,
-.moon-stage[data-active="true"] .night-overlay,
-.moon-stage[data-active="true"] .moon-stars,
-.moon-stage[data-active="true"] .moon,
-.moon-stage[data-active="true"] .moon-glow,
-.moon-stage[data-active="true"] .moon-copy {
-  animation-play-state: running;
 }
 
-@keyframes night {
-  0%   { filter: brightness(1.16) saturate(.9); }
-  100% { filter: brightness(.62) saturate(1.12); }
-}
-@keyframes nightOverlay {
-  0%,24% { opacity: 0; }
-  82%,100% { opacity: 1; }
-}
-@keyframes starsIn {
-  0%,45% { opacity: 0; transform: scale(1); }
-  76%,100% { opacity: .8; transform: scale(1.04); }
-}
-@keyframes moonRise {
-  0%,20% { bottom: -18vh; opacity: 0; }
-  48%    { opacity: 1; }
-  82%,100% { bottom: 58vh; opacity: .98; }
-}
-@keyframes moonGlowRise {
-  0%,20% { bottom: -24vh; opacity: 0; }
-  52%    { opacity: 1; }
-  82%,100% { bottom: 48vh; opacity: .75; }
-}
-@keyframes moonExitCopy {
-  0%,40% { opacity: 0; transform: translate(-50%, -38%); filter: blur(8px); }
-  64%,92% { opacity: 1; transform: translate(-50%, -50%); filter: blur(0); }
-  100% { opacity: 1; transform: translate(-50%, -54%); filter: blur(0); }
-}
-
-/* ===========================================================
- *  prefers-reduced-motion: 全局缩短 / 关闭
- * =========================================================== */
-@media (prefers-reduced-motion: reduce) {
-  .cosmos-title,
-  .moon-stage .sky,
-  .moon-stage .night-overlay,
-  .moon-stage .moon-stars,
-  .moon-stage .moon,
-  .moon-stage .moon-glow,
-  .moon-stage .moon-copy {
-    animation-duration: 1.6s !important;
-  }
-  .reveal { transition: none; opacity: 1; transform: none; }
-  html { scroll-behavior: auto; }
+.contact-card .button-dark {
+  color: #061323;
+  background: linear-gradient(180deg, #ffffff, #cbe8ff);
 }

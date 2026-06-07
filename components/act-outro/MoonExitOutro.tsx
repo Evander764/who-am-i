@@ -4,6 +4,7 @@
 // 移植自 D:/software/Timetable_latest_three/Timetable_source_code/src/main/ritualHtml.ts:1182-1197
 // 纯 CSS keyframes，初始 paused，进入 viewport 后 data-active="true" 触发
 import { useEffect, useRef, useState } from "react";
+import { PROFILE } from "@/app/_data/profile";
 
 export default function MoonExitOutro() {
   const stageRef = useRef<HTMLDivElement | null>(null);
@@ -44,24 +45,26 @@ export default function MoonExitOutro() {
 
         <div className="moon-copy">
           <p className="font-mono text-[11px] tracking-[0.32em] uppercase opacity-75">
-            <span style={{ color: "#7FE6FF" }}>[</span> END · 期待合作{" "}
+            <span style={{ color: "#7FE6FF" }}>[</span> END · 继续交付{" "}
             <span style={{ color: "#7FE6FF" }}>]</span>
           </p>
           <h2
             className="mt-4 font-serif italic leading-tight"
             style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
           >
-            期待一次
+            下一个项目，
             <br />
-            认真的合作。
+            继续做出来。
           </h2>
           <p className="mt-6 font-mono text-[11px] tracking-[0.28em] uppercase opacity-65">
-            CONTACT · 电话 / 微信：15919765137
+            PUBLIC CONTACT · GITHUB / {PROFILE.contacts.github}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="tel:15919765137"
+              href={PROFILE.contacts.githubUrl}
               className="cta"
+              target="_blank"
+              rel="noreferrer noopener"
               style={{
                 background: "#fffdf1",
                 color: "#16140F",
@@ -70,10 +73,10 @@ export default function MoonExitOutro() {
               }}
             >
               <span aria-hidden style={{ color: "#7FE6FF" }}>{"> "}</span>
-              打电话
+              GitHub
             </a>
             <a
-              href="weixin://dl/chat?15919765137"
+              href="#featured"
               className="cta-ghost"
               style={{
                 borderColor: "rgba(255,253,241,0.8)",
@@ -81,7 +84,7 @@ export default function MoonExitOutro() {
               }}
             >
               <span aria-hidden style={{ color: "#7FE6FF" }}>{"> "}</span>
-              加微信
+              看主作品
             </a>
           </div>
         </div>

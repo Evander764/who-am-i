@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { withBasePath } from "@/app/_lib/basePath";
-import type { Work } from "@/app/_data/works";
+import { CATEGORY_LABELS, type Work } from "@/app/_data/works";
 import GalleryRotator from "@/components/work/GalleryRotator";
 import HudTilt from "@/components/work/HudTilt";
 import CodeSnippet from "@/components/work/CodeSnippet";
@@ -61,9 +61,22 @@ export default function WorkRow({ work, reverse = false }: Props) {
       >
         {work.title}
       </h3>
+      <div className="work-meta-row mt-4">
+        <span>{CATEGORY_LABELS[work.category]}</span>
+        <span>{work.status}</span>
+        <span>{work.privacy}</span>
+      </div>
       <p className="lede mt-4">{work.tagline}</p>
 
       {work.outcome ? <p className="body-lg mt-5">{work.outcome}</p> : null}
+
+      {work.summary && work.summary.length > 0 ? (
+        <div className="work-summary mt-6">
+          {work.summary.map((item) => (
+            <p key={item}>{item}</p>
+          ))}
+        </div>
+      ) : null}
 
       {work.tech && work.tech.length > 0 ? (
         <div className="mt-6 flex flex-wrap gap-2">
@@ -79,7 +92,15 @@ export default function WorkRow({ work, reverse = false }: Props) {
         <p className="feature-line">{work.features.join(" · ")}</p>
       ) : null}
 
-      {(work.liveUrl || work.repoUrl) ? (
+      {work.proof && work.proof.length > 0 ? (
+        <div className="proof-strip mt-5">
+          {work.proof.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      ) : null}
+
+      {(work.liveUrl || work.repoUrl || work.links?.length) ? (
         <div className="mt-7 flex flex-wrap gap-x-7 gap-y-3">
           {work.liveUrl ? (
             <a
@@ -101,6 +122,17 @@ export default function WorkRow({ work, reverse = false }: Props) {
               查看源码 <span aria-hidden>→</span>
             </a>
           ) : null}
+          {work.links?.map((link) => (
+            <a
+              key={link.href}
+              className="link-gold"
+              href={link.href}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {link.label} <span aria-hidden>→</span>
+            </a>
+          ))}
         </div>
       ) : null}
 

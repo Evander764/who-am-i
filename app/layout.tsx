@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Newsreader, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import SiteBackdrop from "@/components/fx/SiteBackdrop";
-import CursorGlow from "@/components/fx/CursorGlow";
-import AmbientPlayer from "@/components/fx/AmbientPlayer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,14 +25,14 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "马新淳 · Who am I",
   description:
-    "马新淳的个人介绍站。独立开发者，正在 AI 时代做能用的产品。欢迎洽谈合作。",
+    "马新淳的产品型作品集。19 岁独立开发者，把 AI 桌面自动化、内容系统和个人工作流基础设施做成真实可用的产品。",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#02040b",
+  themeColor: "#061323",
 };
 
 export default function RootLayout({
@@ -46,11 +43,8 @@ export default function RootLayout({
       lang="zh-CN"
       className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable}`}
     >
-      <body className="min-h-full flex flex-col">
-        <SiteBackdrop />
-        <CursorGlow />
-        <AmbientPlayer src="/audio/ambient.mp3" />
-        <div className="relative z-[1] flex flex-1 flex-col">{children}</div>
+      <body>
+        {children}
       </body>
     </html>
   );
